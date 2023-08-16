@@ -1,9 +1,15 @@
 export default {
   'menu.welcome': '欢迎',
+
+  //*****新增内容******* */
+  'menu.llm.marketing-text': '营销文案',
+  'menu.llm.customer-bot': '客服机器人',
+  'menu.sd.product-edit': '商品背景',
+  'menu.admin.kb-data': "知识库",
+  //************ */
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',
-  'menu.admin': '管理页',
-  'menu.admin.sub-page': '二级管理页',
+  'menu.admin': '管理',
   'menu.login': '登录',
   'menu.register': '注册',
   'menu.register-result': '注册结果',

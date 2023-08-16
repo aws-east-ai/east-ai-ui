@@ -7,17 +7,19 @@ const Settings: ProLayoutProps & {
   pwa?: boolean;
   logo?: string;
 } = {
-  navTheme: 'light',
-  // 拂晓蓝
-  colorPrimary: '#1890ff',
-  layout: 'mix',
+  navTheme: 'realDark',
+  pure: false,
+  colorPrimary: '#FAAD14',
+  layout: 'side',
   contentWidth: 'Fluid',
-  fixedHeader: false,
+  fixedHeader: true,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'Ant Design Pro',
+  title: 'AI 东部小分队',
   pwa: true,
-  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  splitMenus: false,
+  siderMenuType: "sub",
+  logo: 'https://a0.awsstatic.com/libra-css/images/logos/aws_smile-header-desktop-en-white_59x35@2x.png',
   iconfontUrl: '',
   token: {
     // 参见ts声明，demo 见文档，通过token 修改样式
@@ -26,3 +28,22 @@ const Settings: ProLayoutProps & {
 };
 
 export default Settings;
+
+
+/*
+
+{
+  "navTheme": "light",
+  "pure": false,
+  "colorPrimary": "#FAAD14",
+  "layout": "side",
+  "contentWidth": "Fluid",
+  "fixedHeader": true,
+  "fixSiderbar": true,
+  "pwa": true,
+  "logo": "https://a0.awsstatic.com/libra-css/images/logos/aws_smile-header-desktop-en-white_59x35@2x.png",
+  "token": {},
+  "splitMenus": false,
+  "siderMenuType": "sub"
+}
+*/

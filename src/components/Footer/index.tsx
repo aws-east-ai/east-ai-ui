@@ -14,6 +14,7 @@ const Footer: React.FC = () => {
 
   return (
     <DefaultFooter
+
       style={{
         background: 'none',
       }}

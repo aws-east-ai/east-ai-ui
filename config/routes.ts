@@ -29,17 +29,24 @@ export default [
     component: './Welcome',
   },
   {
-    path: '/llm-lama',
-    name: 'llm.Lama',
+    path: '/marketing-text',
+    name: 'llm.marketing-text',
     icon: 'smile',
-    component: './Welcome',
+    component: './MarketingText',
   },
   {
-    path: '/sd-idesign',
-    name: 'sd.industry-design',
+    path: '/customer-bot',
+    name: 'llm.customer-bot',
+    icon: 'smile',
+    component: './CustomerBot',
+  },
+  {
+    path: '/sd-product-edit',
+    name: 'sd.product-edit',
     icon: 'smile',
     component: './Welcome',
   },
+
   {
     path: '/admin',
     name: 'admin',
@@ -51,8 +58,8 @@ export default [
         redirect: '/admin/sub-page',
       },
       {
-        path: '/admin/sub-page',
-        name: 'sub-page',
+        path: '/admin/kb-data',
+        name: 'kb-data',
         component: './Admin',
       },
     ],
