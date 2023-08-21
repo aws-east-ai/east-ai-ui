@@ -31,22 +31,28 @@ export default [
   {
     path: '/marketing-text',
     name: 'llm.marketing-text',
-    icon: 'smile',
+    icon: 'FileTextOutlined',
     component: './MarketingText',
   },
   {
+    path: '/sd-product-design',
+    name: 'sd.product-design',
+    icon: 'FormatPainterOutlined',
+    component: './ProductDesign',
+  },
+  // {
+  //   path: '/sd-product-edit',
+  //   name: 'sd.product-edit',
+  //   icon: 'smile',
+  //   component: './Welcome',
+  // },
+
+  {
     path: '/customer-bot',
     name: 'llm.customer-bot',
-    icon: 'smile',
+    icon: 'RobotOutlined',
     component: './CustomerBot',
   },
-  {
-    path: '/sd-product-edit',
-    name: 'sd.product-edit',
-    icon: 'smile',
-    component: './Welcome',
-  },
-
   {
     path: '/admin',
     name: 'admin',
@@ -64,12 +70,12 @@ export default [
       },
     ],
   },
-  {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
-  },
+  // {
+  //   name: 'list.table-list',
+  //   icon: 'table',
+  //   path: '/list',
+  //   component: './TableList',
+  // },
   {
     path: '/',
     redirect: '/welcome',

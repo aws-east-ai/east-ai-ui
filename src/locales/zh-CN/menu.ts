@@ -5,6 +5,7 @@ export default {
   'menu.llm.marketing-text': '营销文案',
   'menu.llm.customer-bot': '客服机器人',
   'menu.sd.product-edit': '商品背景',
+  'menu.sd.product-design': "产品设计",
   'menu.admin.kb-data': "知识库",
   //************ */
   'menu.more-blocks': '更多区块',
