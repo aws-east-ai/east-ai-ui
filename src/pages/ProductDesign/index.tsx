@@ -1,9 +1,13 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
-import { Row, Col, theme, Select, Button, Image, Form, Input, Radio } from 'antd';
+import { Row, Col, theme, Select, Button, Image, Form, Input, InputNumber, Upload, message } from 'antd';
 import React, { useState } from 'react';
 import { productDesign } from '@/services/east-ai/api'
-import Icon, { LoadingOutlined } from '@ant-design/icons';
+import Icon, { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import type { UploadFile } from 'antd/es/upload/interface';
+import type { RcFile, UploadProps, UploadChangeParam } from 'antd/es/upload';
+
+
 
 // const { Title } = Typography;
 
@@ -12,6 +16,8 @@ const MarketingText: React.FC = () => {
   const { initialState } = useModel('@@initialState');
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [input_image, setInput_image] = useState();
+
 
   type FieldType = {
     prompt?: string;
@@ -23,13 +29,17 @@ const MarketingText: React.FC = () => {
     height?: number;
     count?: number;
     input_image?: string;
+
   };
 
   const onFinish = async (values: any) => {
     // console.log(values)
     setLoading(true);
+    if (input_image && input_image.length > 1) {
+      values.input_image = input_image;
+    }
     const res: API.ProductDesignResponse = await productDesign(values);
-    console.log(res);
+    // console.log(res);
     setResponse(res["images"]);
     setLoading(false)
   };
@@ -62,6 +72,43 @@ const MarketingText: React.FC = () => {
     "count": 1,
   }
 
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
+
+  const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
+    if (info.file.status === 'uploading') {
+      setLoading(true);
+      return;
+    }
+    if (info.file.status === 'done') {
+      if (info.file.response.success) {
+        setInput_image(info.file.response.data);
+      } else {
+        message.error(info.file.response.message);
+      }
+      setLoading(false);
+    }
+  };
+  const beforeUpload = (file: RcFile) => {
+    const isImage = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/webp';
+    if (!isImage) {
+      message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt = file.size / 1024 / 1024 < 5;
+    if (!isLt) {
+      message.error('Image must smaller than 5MB!');
+    }
+    // message.info(file.name);
+    // console.log(file)
+    // return false;
+    return isImage && isLt;
+  };
+
+
   return (
     <PageContainer
       waterMarkProps={{
@@ -83,12 +130,27 @@ const MarketingText: React.FC = () => {
               initialValues={defaultValues}
             >
               <Form.Item<FieldType>
+                label="参考图片（可不传）"
+                name="input_image"
+              >
+
+                <Upload
+                  name="file"
+                  action="/api/upload"
+                  onChange={handleChange}
+                  beforeUpload={beforeUpload}
+                  maxCount={1}
+                >
+                  <Input value={input_image} readOnly />
+                </Upload>
+              </Form.Item>
+              <Form.Item<FieldType>
                 label="正向提示词"
                 name="prompt"
                 rules={[{ required: true, message: '请输入商品特点等内容!' }]}
               >
                 <Input.TextArea showCount maxLength={500}
-                  placeholder='请输入商品内容，特点等内容!'
+                  placeholder='请输入商品特点等内容!'
                   allowClear
                   style={{ height: 120 }} />
               </Form.Item>
@@ -124,8 +186,7 @@ const MarketingText: React.FC = () => {
                     name="width"
                     rules={[{ required: true, message: '宽度!' }]}
                   >
-                    <Input allowClear
-                    />
+                    <InputNumber min={128} max={1024} />
                   </Form.Item>
                 </Col>
                 <Col span={6} offset={1}>
@@ -134,8 +195,7 @@ const MarketingText: React.FC = () => {
                     name="height"
                     rules={[{ required: true, message: '高度!' }]}
                   >
-                    <Input allowClear
-                    />
+                    <InputNumber min={128} max={1024} />
                   </Form.Item>
                 </Col>
               </Row>
@@ -146,16 +206,16 @@ const MarketingText: React.FC = () => {
                     name="seed"
                     rules={[{ required: true, message: '种子!' }]}
                   >
-                    <Input />
+                    <InputNumber />
                   </Form.Item>
                 </Col>
                 <Col span={6} offset={1}>
                   <Form.Item<FieldType>
                     label="步数"
                     name="steps"
-                    rules={[{ required: true, message: '宽度!' }]}
+                    rules={[{ required: true, message: '步数!' }]}
                   >
-                    <Input />
+                    <InputNumber min={5} max={50} />
                   </Form.Item>
                 </Col>
                 <Col span={6} offset={1}>
@@ -164,7 +224,8 @@ const MarketingText: React.FC = () => {
                     name="count"
                     rules={[{ required: true, message: '图片数量!' }]}
                   >
-                    <Input />
+                    <InputNumber min={1} max={4} />
+
                   </Form.Item>
                 </Col>
               </Row>
@@ -186,8 +247,9 @@ const MarketingText: React.FC = () => {
                 loading ? <div><LoadingOutlined /></div> : null
               }
               {
-                response.map(imgStr => {
+                response.map((imgStr, i) => {
                   return <Image
+                    key={i}
                     src={"data:image/png;base64," + imgStr}
                     style={{
                       maxWidth: 320,

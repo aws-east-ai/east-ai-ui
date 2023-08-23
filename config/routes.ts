@@ -47,29 +47,29 @@ export default [
   //   component: './Welcome',
   // },
 
-  {
-    path: '/customer-bot',
-    name: 'llm.customer-bot',
-    icon: 'RobotOutlined',
-    component: './CustomerBot',
-  },
-  {
-    path: '/admin',
-    name: 'admin',
-    icon: 'crown',
-    access: 'canAdmin',
-    routes: [
-      {
-        path: '/admin',
-        redirect: '/admin/sub-page',
-      },
-      {
-        path: '/admin/kb-data',
-        name: 'kb-data',
-        component: './Admin',
-      },
-    ],
-  },
+  // {
+  //   path: '/customer-bot',
+  //   name: 'llm.customer-bot',
+  //   icon: 'RobotOutlined',
+  //   component: './CustomerBot',
+  // },
+  // {
+  //   path: '/admin',
+  //   name: 'admin',
+  //   icon: 'crown',
+  //   access: 'canAdmin',
+  //   routes: [
+  //     {
+  //       path: '/admin',
+  //       redirect: '/admin/sub-page',
+  //     },
+  //     {
+  //       path: '/admin/kb-data',
+  //       name: 'kb-data',
+  //       component: './Admin',
+  //     },
+  //   ],
+  // },
   // {
   //   name: 'list.table-list',
   //   icon: 'table',

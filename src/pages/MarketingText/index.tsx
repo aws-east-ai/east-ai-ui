@@ -1,9 +1,9 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
-import { Row, Col, theme, Typography, Button, Checkbox, Form, Input, Radio } from 'antd';
+import { Row, Col, theme, Typography, Button, Avatar, Form, Input, Radio } from 'antd';
 import React, { useState } from 'react';
 import { writeMarketingText } from '@/services/east-ai/api'
-import Icon, { LoadingOutlined } from '@ant-design/icons';
+import Icon, { LoadingOutlined, UserOutlined, RobotOutlined } from '@ant-design/icons';
 
 // const { Title } = Typography;
 
@@ -11,7 +11,7 @@ const MarketingText: React.FC = () => {
   const { token } = theme.useToken();
   const { initialState } = useModel('@@initialState');
   const [pattern, setPattern] = useState('redbook');
-  const [response, setResponse] = useState('请编写您的商品的名称，特性，卖点，关键词等');
+  const [response, setResponse] = useState();
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -57,18 +57,18 @@ const MarketingText: React.FC = () => {
   const comego = {
     margin: 4,
     borderRadius: 4,
-    background: "#333"
+    background: "#333",
+    padding: 5,
+    // display: "flex",
+    // flexDirection: "row",
+    // flexWrap: "wrap"
   }
-  const left = {
-    textAlign: "left",
-    marginRight: 120,
-    padding: 10
+
+  const defaultValues = {
+    prompt: "汽车",
+    pattern: "redbook"
   }
-  const right = {
-    textAlign: "left",
-    marginLeft: 120,
-    padding: 10
-  }
+
   return (
     <PageContainer
       waterMarkProps={{
@@ -87,6 +87,7 @@ const MarketingText: React.FC = () => {
               onFinishFailed={onFinishFailed}
               autoComplete="off"
               layout="vertical"
+              initialValues={defaultValues}
             >
               <Form.Item<FieldType>
                 label="商品描述"
@@ -126,17 +127,34 @@ const MarketingText: React.FC = () => {
               borderRadius: 4,
               margin: 8,
             }}>
-              {
-                loading ? <div><LoadingOutlined /></div> : null
-              }
-              {
-                history.map(item => (
-                  <div style={comego}>
-                    <div style={left}>{item[0]}</div>
-                    <div style={right}>{item[1]}</div>
-                  </div>
-                ))
-              }
+              <div style={comego}>
+                {
+                  history.length == 0 && <div>输入您的商品描述开始撰写文案，持续聊天可以进行修改。</div>
+                }
+                {
+                  loading ? <div><LoadingOutlined /></div> : null
+                }
+                {
+                  history.map(item => (
+                    <div style={{
+                      marginBottom: 10
+                    }}>
+                      <Row>
+                        <Col flex="auto" style={{ textAlign: "right", paddingLeft: 60, margin: "8px 4px" }}>{item[0]}</Col>
+                        <Col flex="40px" style={{ textAlign: "center" }}>
+                          <Avatar size={32} icon={<UserOutlined />} />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col flex="40px" style={{ textAlign: "center" }}>
+                          <Avatar size={32} icon={<RobotOutlined />} />
+                        </Col>
+                        <Col flex="auto" style={{ paddingRight: 100, maxWidth: "90%" }}>{item[1]}</Col>
+                      </Row>
+                    </div>
+                  ))
+                }
+              </div>
             </div>
           </Col>
         </Row>
