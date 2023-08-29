@@ -15,10 +15,10 @@ const Settings: ProLayoutProps & {
   fixedHeader: true,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'AI 东部小分队',
+  title: '跨境电商生成式AI',
   pwa: true,
   splitMenus: false,
-  siderMenuType: "sub",
+  siderMenuType: 'sub',
   logo: 'https://a0.awsstatic.com/libra-css/images/logos/aws_smile-header-desktop-en-white_59x35@2x.png',
   iconfontUrl: '',
   token: {
@@ -28,7 +28,6 @@ const Settings: ProLayoutProps & {
 };
 
 export default Settings;
-
 
 /*
 

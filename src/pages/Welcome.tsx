@@ -112,7 +112,7 @@ const Welcome: React.FC = () => {
               color: token.colorTextHeading,
             }}
           >
-            欢迎参加 EAST GAI Workshop
+            亚马逊云科技跨境电商场景生成式AI Workshop
           </div>
           <p
             style={{
@@ -124,8 +124,7 @@ const Welcome: React.FC = () => {
               width: '65%',
             }}
           >
-            本 Workshop 将全面展示一个端到端的 AI 系统。
-
+            本 Workshop 展示了如何通过一个简单的自定义UI让AIGC为业务赋能
           </p>
           <div
             style={{
@@ -137,20 +136,20 @@ const Welcome: React.FC = () => {
             <InfoCard
               index={1}
               href="#"
-              title="了解 1"
-              desc="xxxx"
+              title="动手实验手册"
+              desc="通过实验手册，指导您一步步将本系统部署至自有帐号中"
             />
             <InfoCard
               index={2}
-              title="了解 AWS GAI"
-              href="#"
-              desc="yyyyyyyyyy。"
+              title="亚马逊云科技生成式AI"
+              href="https://aws.amazon.com/generative-ai/"
+              desc="帮助客户更快地创新，重塑客户体验和应用程序"
             />
             <InfoCard
               index={3}
-              title="了解 AWS"
+              title="了解亚马逊云科技"
               href="https://aws.amazon.com/"
-              desc="zzzz zzzzzzzz   zzzzzzzzzzzzzzzzz"
+              desc="全球领先的云计算平台，提供强大的计算、存储、数据库等一系列云服务。客户可以灵活地构建、部署和扩展各种应用程序"
             />
           </div>
         </div>
