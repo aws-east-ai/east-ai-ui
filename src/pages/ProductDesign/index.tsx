@@ -20,6 +20,7 @@ const MarketingText: React.FC = () => {
 
 
   type FieldType = {
+    model_id?: string;
     prompt?: string;
     negative_prompt?: string;
     steps?: number;
@@ -29,6 +30,7 @@ const MarketingText: React.FC = () => {
     height?: number;
     count?: number;
     input_image?: string;
+
 
   };
 
@@ -70,6 +72,7 @@ const MarketingText: React.FC = () => {
     "height": 512,
     "width": 512,
     "count": 1,
+    "model_id": "product_design"
   }
 
   const uploadButton = (
@@ -129,6 +132,17 @@ const MarketingText: React.FC = () => {
               layout="vertical"
               initialValues={defaultValues}
             >
+
+
+              <Form.Item<FieldType>
+                label="模型选择"
+                name="model_id"
+              >
+                <Select>
+                  <Select.Option value="product_design">产品设计</Select.Option>
+                  <Select.Option value="product_inpaint">局部重画</Select.Option>
+                </Select>
+              </Form.Item>
               <Form.Item<FieldType>
                 label="参考图片（可不传）"
                 name="input_image"
@@ -167,7 +181,46 @@ const MarketingText: React.FC = () => {
               </Form.Item>
 
               <Row>
-                <Col span={10}>
+                <Col span={8}>
+                  <Form.Item<FieldType>
+                    label="宽"
+                    name="width"
+                    rules={[{ required: true, message: '宽度!' }]}
+                  >
+                    <InputNumber min={128} max={1024} />
+                  </Form.Item>
+                </Col>
+                <Col span={8}>
+                  <Form.Item<FieldType>
+                    label="高"
+                    name="height"
+                    rules={[{ required: true, message: '高度!' }]}
+                  >
+                    <InputNumber min={128} max={1024} />
+                  </Form.Item>
+                </Col>
+                <Col span={8}>
+                  <Form.Item<FieldType>
+                    label="数量"
+                    name="count"
+                    rules={[{ required: true, message: '图片数量!' }]}
+                  >
+                    <InputNumber min={1} max={4} />
+
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row style={{ display: "none" }}>
+                <Col span={24}>
+
+                  <Form.Item<FieldType>
+                    label="种子"
+                    name="seed"
+                    rules={[{ required: true, message: '种子!' }]}
+                  >
+                    <InputNumber />
+                  </Form.Item>
+
                   <Form.Item<FieldType>
                     label="采样器"
                     name="sampler"
@@ -179,53 +232,13 @@ const MarketingText: React.FC = () => {
                       }
                     </Select>
                   </Form.Item>
-                </Col>
-                <Col span={6} offset={1}>
-                  <Form.Item<FieldType>
-                    label="宽"
-                    name="width"
-                    rules={[{ required: true, message: '宽度!' }]}
-                  >
-                    <InputNumber min={128} max={1024} />
-                  </Form.Item>
-                </Col>
-                <Col span={6} offset={1}>
-                  <Form.Item<FieldType>
-                    label="高"
-                    name="height"
-                    rules={[{ required: true, message: '高度!' }]}
-                  >
-                    <InputNumber min={128} max={1024} />
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row>
-                <Col span={10}>
-                  <Form.Item<FieldType>
-                    label="种子"
-                    name="seed"
-                    rules={[{ required: true, message: '种子!' }]}
-                  >
-                    <InputNumber />
-                  </Form.Item>
-                </Col>
-                <Col span={6} offset={1}>
+
                   <Form.Item<FieldType>
                     label="步数"
                     name="steps"
                     rules={[{ required: true, message: '步数!' }]}
                   >
                     <InputNumber min={5} max={50} />
-                  </Form.Item>
-                </Col>
-                <Col span={6} offset={1}>
-                  <Form.Item<FieldType>
-                    label="数量"
-                    name="count"
-                    rules={[{ required: true, message: '图片数量!' }]}
-                  >
-                    <InputNumber min={1} max={4} />
-
                   </Form.Item>
                 </Col>
               </Row>
