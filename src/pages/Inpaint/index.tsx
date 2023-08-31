@@ -2,7 +2,7 @@ import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { Row, Col, theme, Select, Button, Image, Form, Input, InputNumber, Upload, message } from 'antd';
 import React, { useState } from 'react';
-import { productDesign } from '@/services/east-ai/api'
+import { inpaint, productDesign } from '@/services/east-ai/api'
 import Icon, { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd/es/upload/interface';
 import type { RcFile, UploadProps, UploadChangeParam } from 'antd/es/upload';
@@ -26,20 +26,21 @@ const Inpaint: React.FC = () => {
     steps?: number;
     sampler?: string;
     seed?: number;
-    width?: number;
-    height?: number;
     count?: number;
     input_image?: string;
     sam_prompt?: string;
   };
 
+  const toHttpImage = (s3_url: string) => {
+    return s3_url.replace("s3://east-ai-workshop", "https://d1onssyrnp1eaq.cloudfront.net");
+  }
   const onFinish = async (values: any) => {
     // console.log(values)
     setLoading(true);
     if (input_image && input_image.length > 1) {
       values.input_image = input_image;
     }
-    const res: API.ProductDesignResponse = await productDesign(values);
+    const res: API.InpaintResponse = await inpaint(values);
     // console.log(res);
     setResponse(res["images"]);
     setLoading(false)
@@ -63,16 +64,13 @@ const Inpaint: React.FC = () => {
     'ddim'
   ];
   const defaultValues = {
-    "prompt": "3D product render, futuristic armchair, finely detailed, purism, ue 5, a computer rendering, minimalism, octane render, 4k",
-    "negative_prompt": "EasyNegative, (worst quality:2), (low quality:2), (normal quality:2), lowres, ((monochrome)), ((grayscale)), cropped, text, jpeg artifacts, signature, watermark, username, sketch, cartoon, drawing, anime, duplicate, blurry, semi-realistic, out of frame, ugly, deformed",
+    "negative_prompt": "(deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime:1.4), text, close up, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, disfigured, gross proportions",
     "steps": 30,
-    "sampler": "dpm2_a",
+    "sampler": "ddim",
     "seed": -1,
-    "height": 512,
-    "width": 512,
     "count": 1,
     "model_id": "product_design",
-    "sam_prompt": "armchair"
+    "sam_prompt": ""
   }
 
   const uploadButton = (
@@ -134,71 +132,56 @@ const Inpaint: React.FC = () => {
             >
 
               <Form.Item<FieldType>
-                label="原始图片"
+                label="产品图片"
                 name="input_image"
                 rules={[{ required: true, message: '请上传原始图片!' }]}
               >
                 <Upload
                   name="file"
                   action="/api/upload"
+                  className="avatar-uploader"
+                  showUploadList={false}
                   onChange={handleChange}
                   beforeUpload={beforeUpload}
                   maxCount={1}
                 >
-                  <Input value={input_image} readOnly />
+                  {input_image ? <img src={toHttpImage(input_image)} alt="avatar" style={{ maxHeight: 320, maxWidth: 320 }} /> : uploadButton}
+
                 </Upload>
               </Form.Item>
 
               <Form.Item<FieldType>
-                label="保留的内容"
+                label="产品描述"
                 name="sam_prompt"
-                rules={[{ required: true, message: '请输入画面需要保留的内容!' }]}
+                rules={[{ required: true, message: '请描述您上传图片的中需要保留的内容!' }]}
               >
-                <InputNumber min={1} max={4} />
+                <Input placeholder='请描述您上传图片的中需要保留的内容!' />
 
               </Form.Item>
               <Form.Item<FieldType>
-                label="正向提示词"
+                label="背景描述"
                 name="prompt"
-                rules={[{ required: true, message: '请输入商品特点等内容!' }]}
+                rules={[{ required: true, message: '请输入重绘内容!' }]}
               >
                 <Input.TextArea showCount maxLength={500}
-                  placeholder='请输入商品特点等内容!'
+                  placeholder='除了保留的内容，其他地方您想画什么？'
                   allowClear
                   style={{ height: 120 }} />
               </Form.Item>
 
               <Form.Item<FieldType>
-                label="反向提示词"
+                label="您不想出现在画面中的内容"
                 name="negative_prompt"
                 rules={[{ required: true, message: '请输入反向提示词!' }]}
               >
                 <Input.TextArea showCount maxLength={500}
-                  placeholder='请输入您不想在产品中出现的元素'
+                  placeholder='请输入您不想在重会区域中出现的内容'
                   allowClear
                   style={{ height: 120 }} />
               </Form.Item>
 
               <Row>
-                <Col span={8}>
-                  <Form.Item<FieldType>
-                    label="宽"
-                    name="width"
-                    rules={[{ required: true, message: '宽度!' }]}
-                  >
-                    <InputNumber min={128} max={1024} />
-                  </Form.Item>
-                </Col>
-                <Col span={8}>
-                  <Form.Item<FieldType>
-                    label="高"
-                    name="height"
-                    rules={[{ required: true, message: '高度!' }]}
-                  >
-                    <InputNumber min={128} max={1024} />
-                  </Form.Item>
-                </Col>
-                <Col span={8}>
+                <Col span={24}>
                   <Form.Item<FieldType>
                     label="数量"
                     name="count"

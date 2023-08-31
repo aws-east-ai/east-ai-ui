@@ -6,8 +6,9 @@ export default {
   'menu.llm.customer-bot': '智能客服',
   'menu.sd.product-edit': '产品配图',
   'menu.sd.product-design': '产品创意',
+  'menu.sd.inpaint': '产品重绘',
   'menu.admin.kb-data': '知识库',
-  'menu.about': '关于Workshop',
+  'menu.about': '关于 Workshop',
   //************ */
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',

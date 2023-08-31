@@ -139,8 +139,8 @@ const MarketingText: React.FC = () => {
                 name="model_id"
               >
                 <Select>
-                  <Select.Option value="product_design">产品设计</Select.Option>
-                  <Select.Option value="product_inpaint">局部重画</Select.Option>
+                  <Select.Option value="product_design">A模型</Select.Option>
+                  <Select.Option value="product_inpaint">B模型</Select.Option>
                 </Select>
               </Form.Item>
               <Form.Item<FieldType>

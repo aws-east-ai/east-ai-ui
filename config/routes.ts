@@ -41,6 +41,12 @@ export default [
     component: './ProductDesign',
   },
   {
+    path: '/inpaint',
+    name: 'sd.inpaint',
+    icon: 'FileTextOutlined',
+    component: './Inpaint',
+  },
+  {
     path: '/customer-bot',
     name: 'llm.customer-bot',
     icon: 'FileTextOutlined',

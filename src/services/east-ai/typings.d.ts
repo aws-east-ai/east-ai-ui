@@ -23,4 +23,21 @@ declare namespace API {
   type ProductDesignResponse = {
     images?: string[];
   }
+
+  type InpaintRequest = {
+    model_id?: string;
+    prompt?: string;
+    negative_prompt?: string;
+    steps?: number;
+    sampler?: string;
+    seed?: number;
+    count?: number;
+    input_image?: string;
+    sam_prompt?: string;
+
+  }
+  type InpaintResponse = {
+    images?: string[];
+
+  }
 }

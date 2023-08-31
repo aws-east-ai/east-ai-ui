@@ -24,3 +24,16 @@ export async function productDesign(data: API.ProductDesignRequest, options?: { 
     ...(options || {}),
   });
 }
+
+
+export async function inpaint(data: API.InpaintRequest, options?: { [key: string]: any }) {
+  // console.log({ ...(options || {}) })
+  // console.log(data);
+  return request<{
+    data: API.InpaintResponse;
+  }>('/api/inpaint', {
+    method: 'POST',
+    data,
+    ...(options || {}),
+  });
+}
