@@ -15,7 +15,7 @@ const Settings: ProLayoutProps & {
   fixedHeader: true,
   fixSiderbar: true,
   colorWeak: false,
-  title: '跨境电商生成式AI',
+  title: '生成式AI Workshop',
   pwa: true,
   splitMenus: false,
   siderMenuType: 'sub',

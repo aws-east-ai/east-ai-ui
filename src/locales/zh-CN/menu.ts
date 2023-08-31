@@ -3,10 +3,11 @@ export default {
 
   //*****新增内容******* */
   'menu.llm.marketing-text': '营销文案',
-  'menu.llm.customer-bot': '客服机器人',
-  'menu.sd.product-edit': '商品背景',
-  'menu.sd.product-design': "产品设计",
-  'menu.admin.kb-data': "知识库",
+  'menu.llm.customer-bot': '智能客服',
+  'menu.sd.product-edit': '产品配图',
+  'menu.sd.product-design': '产品创意',
+  'menu.admin.kb-data': '知识库',
+  'menu.about': '关于Workshop',
   //************ */
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',

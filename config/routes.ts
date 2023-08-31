@@ -40,6 +40,18 @@ export default [
     icon: 'FormatPainterOutlined',
     component: './ProductDesign',
   },
+  {
+    path: '/customer-bot',
+    name: 'llm.customer-bot',
+    icon: 'FileTextOutlined',
+    component: './CustomerBot',
+  },
+  {
+    path: '/about',
+    name: 'about',
+    icon: 'FormatPainterOutlined',
+    component: './About',
+  },
   // {
   //   path: '/sd-product-edit',
   //   name: 'sd.product-edit',
