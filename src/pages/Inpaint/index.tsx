@@ -1,23 +1,30 @@
+import { inpaint } from '@/services/east-ai/api';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
-import { Row, Col, theme, Select, Button, Image, Form, Input, InputNumber, Upload, message } from 'antd';
-import React, { useState } from 'react';
-import { inpaint, productDesign } from '@/services/east-ai/api'
-import Icon, { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import {
+  Button,
+  Col,
+  Form,
+  Image,
+  Input,
+  InputNumber,
+  message,
+  Row,
+  Select,
+  theme,
+  Upload,
+} from 'antd';
+import type { RcFile, UploadChangeParam, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
-import type { RcFile, UploadProps, UploadChangeParam } from 'antd/es/upload';
-
-
+import React, { useState } from 'react';
 
 // const { Title } = Typography;
 
 const Inpaint: React.FC = () => {
   const { token } = theme.useToken();
-  const { initialState } = useModel('@@initialState');
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(false);
   const [input_image, setInput_image] = useState();
-
 
   type FieldType = {
     model_id?: string;
@@ -32,8 +39,8 @@ const Inpaint: React.FC = () => {
   };
 
   const toHttpImage = (s3_url: string) => {
-    return s3_url.replace("s3://east-ai-workshop", "https://d1onssyrnp1eaq.cloudfront.net");
-  }
+    return s3_url.replace('s3://east-ai-workshop', 'https://d1onssyrnp1eaq.cloudfront.net');
+  };
   const onFinish = async (values: any) => {
     // console.log(values)
     setLoading(true);
@@ -42,8 +49,8 @@ const Inpaint: React.FC = () => {
     }
     const res: API.InpaintResponse = await inpaint(values);
     // console.log(res);
-    setResponse(res["images"]);
-    setLoading(false)
+    setResponse(res['images']);
+    setLoading(false);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -54,24 +61,17 @@ const Inpaint: React.FC = () => {
   //   console.log("XXX", values);
   //   // writeMarketingText(pattern);
   // }
-  const samplers = [
-    'euler_a',
-    'eular',
-    'heun',
-    'lms',
-    'dpm2',
-    'dpm2_a',
-    'ddim'
-  ];
+  const samplers = ['euler_a', 'eular', 'heun', 'lms', 'dpm2', 'dpm2_a', 'ddim'];
   const defaultValues = {
-    "negative_prompt": "(deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime:1.4), text, close up, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, disfigured, gross proportions",
-    "steps": 30,
-    "sampler": "ddim",
-    "seed": -1,
-    "count": 1,
-    "model_id": "product_design",
-    "sam_prompt": ""
-  }
+    negative_prompt:
+      '(deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime:1.4), text, close up, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, disfigured, gross proportions',
+    steps: 30,
+    sampler: 'ddim',
+    seed: -1,
+    count: 1,
+    model_id: 'product_design',
+    sam_prompt: '',
+  };
 
   const uploadButton = (
     <div>
@@ -95,7 +95,8 @@ const Inpaint: React.FC = () => {
     }
   };
   const beforeUpload = (file: RcFile) => {
-    const isImage = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/webp';
+    const isImage =
+      file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/webp';
     if (!isImage) {
       message.error('You can only upload JPG/PNG file!');
     }
@@ -109,16 +110,16 @@ const Inpaint: React.FC = () => {
     return isImage && isLt;
   };
 
-
   return (
     <PageContainer
       waterMarkProps={{
-        content: ""
+        content: '',
       }}
     >
-      <div style={{
-        color: token.colorTextHeading,
-      }}
+      <div
+        style={{
+          color: token.colorTextHeading,
+        }}
       >
         <Row>
           <Col span={8}>
@@ -130,6 +131,12 @@ const Inpaint: React.FC = () => {
               layout="vertical"
               initialValues={defaultValues}
             >
+              <Form.Item<FieldType> label="模型选择" name="model_id">
+                <Select>
+                  <Select.Option value="product_design">抠图渲染模型</Select.Option>
+                  <Select.Option value="product_inpaint">备用模型</Select.Option>
+                </Select>
+              </Form.Item>
 
               <Form.Item<FieldType>
                 label="产品图片"
@@ -145,8 +152,15 @@ const Inpaint: React.FC = () => {
                   beforeUpload={beforeUpload}
                   maxCount={1}
                 >
-                  {input_image ? <img src={toHttpImage(input_image)} alt="avatar" style={{ maxHeight: 320, maxWidth: 320 }} /> : uploadButton}
-
+                  {input_image ? (
+                    <img
+                      src={toHttpImage(input_image)}
+                      alt="avatar"
+                      style={{ maxHeight: 320, maxWidth: 320 }}
+                    />
+                  ) : (
+                    uploadButton
+                  )}
                 </Upload>
               </Form.Item>
 
@@ -155,46 +169,49 @@ const Inpaint: React.FC = () => {
                 name="sam_prompt"
                 rules={[{ required: true, message: '请描述您上传图片的中需要保留的内容!' }]}
               >
-                <Input placeholder='请描述您上传图片的中需要保留的内容!' />
-
+                <Input placeholder="请描述您上传图片的中需要保留的内容!" />
               </Form.Item>
               <Form.Item<FieldType>
-                label="背景描述"
+                label="背景提示词"
                 name="prompt"
                 rules={[{ required: true, message: '请输入重绘内容!' }]}
               >
-                <Input.TextArea showCount maxLength={500}
-                  placeholder='除了保留的内容，其他地方您想画什么？'
+                <Input.TextArea
+                  showCount
+                  maxLength={500}
+                  placeholder="除了保留的内容，其他地方您想画什么？"
                   allowClear
-                  style={{ height: 120 }} />
+                  style={{ height: 120 }}
+                />
               </Form.Item>
 
               <Form.Item<FieldType>
-                label="您不想出现在画面中的内容"
+                label="避免出现在画面中的内容"
                 name="negative_prompt"
                 rules={[{ required: true, message: '请输入反向提示词!' }]}
               >
-                <Input.TextArea showCount maxLength={500}
-                  placeholder='请输入您不想在重会区域中出现的内容'
+                <Input.TextArea
+                  showCount
+                  maxLength={500}
+                  placeholder="请输入您不想在重会区域中出现的内容"
                   allowClear
-                  style={{ height: 120 }} />
+                  style={{ height: 120 }}
+                />
               </Form.Item>
 
               <Row>
                 <Col span={24}>
                   <Form.Item<FieldType>
-                    label="数量"
+                    label="图片数量"
                     name="count"
                     rules={[{ required: true, message: '图片数量!' }]}
                   >
                     <InputNumber min={1} max={4} />
-
                   </Form.Item>
                 </Col>
               </Row>
-              <Row style={{ display: "none" }}>
+              <Row style={{ display: 'none' }}>
                 <Col span={24}>
-
                   <Form.Item<FieldType>
                     label="种子"
                     name="seed"
@@ -208,10 +225,12 @@ const Inpaint: React.FC = () => {
                     name="sampler"
                     rules={[{ required: true, message: '采样器!' }]}
                   >
-                    <Select >
-                      {
-                        samplers.map(s => <Select.Option key={s} value={s}>{s}</Select.Option>)
-                      }
+                    <Select>
+                      {samplers.map((s) => (
+                        <Select.Option key={s} value={s}>
+                          {s}
+                        </Select.Option>
+                      ))}
                     </Select>
                   </Form.Item>
 
@@ -233,38 +252,39 @@ const Inpaint: React.FC = () => {
           </Col>
           <Col span={1}></Col>
           <Col span={14}>
-            <div style={{
-              width: "100%",
-              borderRadius: 4,
-              margin: 8,
-            }}>
-              {
-                loading ? <div><LoadingOutlined /></div> : null
-              }
-              {
-                response.map((imgStr, i) => {
-                  return <Image
+            <div
+              style={{
+                width: '100%',
+                borderRadius: 4,
+                margin: 8,
+              }}
+            >
+              {loading ? (
+                <div>
+                  <LoadingOutlined />
+                </div>
+              ) : null}
+              {response.map((imgStr, i) => {
+                return (
+                  <Image
                     key={i}
-                    src={"data:image/png;base64," + imgStr}
+                    src={'data:image/png;base64,' + imgStr}
                     style={{
                       maxWidth: 320,
                       maxHeight: 320,
-                      border: "solid #fff 1px",
-                      margin: "10px",
-                      float: "left"
+                      border: 'solid #fff 1px',
+                      margin: '10px',
+                      float: 'left',
                     }}
                   />
-                })
-              }
-
+                );
+              })}
             </div>
           </Col>
         </Row>
       </div>
     </PageContainer>
-  )
-}
+  );
+};
 
 export default Inpaint;
-
-
