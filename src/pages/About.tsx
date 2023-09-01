@@ -38,6 +38,14 @@ const AboutPage: React.FC = () => {
             <li>Xu Xiaoliang</li>
           </ul>
         </div>
+        <div
+          style={{
+            fontSize: '20pt',
+            fontWeight: 'bold',
+          }}
+        >
+          Github:
+        </div>
       </Card>
     </PageContainer>
   );

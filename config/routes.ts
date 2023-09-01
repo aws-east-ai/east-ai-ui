@@ -47,12 +47,6 @@ export default [
     component: './Inpaint',
   },
   {
-    path: '/customer-bot',
-    name: 'llm.customer-bot',
-    icon: 'FileTextOutlined',
-    component: './CustomerBot',
-  },
-  {
     path: '/about',
     name: 'about',
     icon: 'FormatPainterOutlined',
