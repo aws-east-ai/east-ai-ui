@@ -47,6 +47,19 @@ const AboutPage: React.FC = () => {
         >
           Github:
         </div>
+        <div
+          style={{
+            fontSize: '14pt',
+          }}
+        >
+          <ul>
+            <li>
+              <a href="https://github.com/aws-east-ai/east-ai-deploy">
+                https://github.com/aws-east-ai/east-ai-deploy
+              </a>
+            </li>
+          </ul>
+        </div>
       </Card>
     </PageContainer>
   );

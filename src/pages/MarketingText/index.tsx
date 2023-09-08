@@ -1,23 +1,20 @@
+import { LoadingOutlined, RobotOutlined, UserOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
-import { Row, Col, theme, message as ant_message, Button, Avatar, Form, Input, Radio } from 'antd';
-import React, { useEffect, useState, useRef } from 'react';
-import { writeMarketingText } from '@/services/east-ai/api'
-import Icon, { LoadingOutlined, UserOutlined, RobotOutlined } from '@ant-design/icons';
-
+import { Avatar, Button, Col, Form, Input, Radio, Row, theme } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 
 // const { Title } = Typography;
 
 const MarketingText: React.FC = () => {
   const { token } = theme.useToken();
-  const { initialState } = useModel('@@initialState');
+  //  const { initialState } = useModel('@@initialState');
   const [pattern, setPattern] = useState('redbook');
   // const [response, setResponse] = useState();
   const [history, setHistory] = useState([]);
-  const [message, setMessage] = useState("");
-  const [question, setQuestion] = useState("");
+  const [message, setMessage] = useState('');
+  const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(false);
-  const [messageApi, contextHolder] = ant_message.useMessage();
+  //  const [messageApi, contextHolder] = ant_message.useMessage();
 
   type FieldType = {
     prompt?: string;
@@ -27,38 +24,38 @@ const MarketingText: React.FC = () => {
   const ws = useRef(null);
 
   useEffect(() => {
-    var loc = window.location, new_uri;
-    if (loc.protocol === "https:") {
-      new_uri = "wss:";
+    let loc = window.location,
+      new_uri;
+    if (loc.protocol === 'https:') {
+      new_uri = 'wss:';
     } else {
-      new_uri = "ws:";
+      new_uri = 'ws:';
     }
-    new_uri += "//" + loc.host;
-    new_uri += "/api/chat-bot";
+    new_uri += '//' + loc.host;
+    new_uri += '/api/chat-bot';
     // console.log("11111111", new_uri)
     // const new_uri = "ws://127.0.0.1:8000/api/chat-bot"
     console.log(new_uri);
     ws.current = new WebSocket(new_uri);
-    ws.current.onopen = () => console.log("ws opened");
-    ws.current.onclose = () => console.log("ws closed");
+    ws.current.onopen = () => console.log('ws opened');
+    ws.current.onclose = () => console.log('ws closed');
 
-    ws.current.onmessage = e => {
+    ws.current.onmessage = (e) => {
       const revStr = e.data;
       let jObject;
       try {
         jObject = JSON.parse(revStr);
-      } catch (e) {
-      }
+      } catch (e) {}
 
-      if (jObject && jObject.status === "done") {
+      if (jObject && jObject.status === 'done') {
         setHistory(jObject.history);
-        setMessage("");
-        setQuestion("");
-      } else if (jObject && jObject.status === "begin") {
-        setQuestion(jObject.question)
+        setMessage('');
+        setQuestion('');
+      } else if (jObject && jObject.status === 'begin') {
+        setQuestion(jObject.question);
       } else {
         // console.log(revStr, message);
-        setMessage(prev => prev + revStr);
+        setMessage((prev) => prev + revStr);
         setLoading(false);
       }
     };
@@ -70,7 +67,6 @@ const MarketingText: React.FC = () => {
     };
   }, []);
 
-
   const onFinish = async (values: any) => {
     values.history = history;
     setLoading(true);
@@ -78,7 +74,7 @@ const MarketingText: React.FC = () => {
     if (ws.current.readyState === 1) {
       ws.current.send(JSON.stringify(values));
     } else {
-      console.log("error, socket closed.")
+      console.log('error, socket closed.');
     }
   };
 
@@ -88,7 +84,7 @@ const MarketingText: React.FC = () => {
   const onPatternChange = (value: any) => {
     setPattern(value);
     setHistory([]);
-  }
+  };
   // const submit = (values: any) => {
   //   console.log("XXX", values);
   //   // writeMarketingText(pattern);
@@ -107,27 +103,29 @@ const MarketingText: React.FC = () => {
   const comego = {
     margin: 4,
     borderRadius: 4,
-    background: "#333",
+    background: '#333',
     padding: 5,
+    fontSize: '16pt',
     // display: "flex",
     // flexDirection: "row",
     // flexWrap: "wrap"
-  }
+  };
 
   const defaultValues = {
-    prompt: "汽车",
-    pattern: "redbook"
-  }
+    prompt: '汽车',
+    pattern: 'redbook',
+  };
 
   return (
     <PageContainer
       waterMarkProps={{
-        content: ""
+        content: '',
       }}
     >
-      <div style={{
-        color: token.colorTextHeading,
-      }}
+      <div
+        style={{
+          color: token.colorTextHeading,
+        }}
       >
         <Row>
           <Col span={8}>
@@ -144,22 +142,22 @@ const MarketingText: React.FC = () => {
                 name="prompt"
                 rules={[{ required: true, message: '请输入商品特性，描述等内容!' }]}
               >
-                <Input.TextArea showCount maxLength={500}
-                  placeholder='请输入商品特性，描述等内容!'
+                <Input.TextArea
+                  showCount
+                  maxLength={500}
+                  placeholder="请输入商品特性，描述等内容!"
                   allowClear
-                  style={{ height: 180 }} />
+                  style={{ height: 180 }}
+                />
               </Form.Item>
 
-              <Form.Item<FieldType>
-                label="风格"
-                name="pattern"
-              >
+              <Form.Item<FieldType> label="风格" name="pattern">
                 <Radio.Group
                   options={patterns}
                   onChange={onPatternChange}
                   value={pattern}
                   optionType="button"
-                  buttonStyle='solid'
+                  buttonStyle="solid"
                 />
               </Form.Item>
 
@@ -172,64 +170,106 @@ const MarketingText: React.FC = () => {
           </Col>
           <Col span={1}></Col>
           <Col span={14}>
-            <div style={{
-              width: "100%",
-              borderRadius: 4,
-              margin: 8,
-            }}>
+            <div
+              style={{
+                width: '100%',
+                borderRadius: 4,
+                margin: 8,
+              }}
+            >
               <div style={comego}>
-                {
-                  (history.length == 0 && !question) && <div>输入您的商品描述开始撰写文案，持续聊天可以进行修改。</div>
-                }
-                {
-                  history.map(item => (
-                    <div style={{
-                      marginBottom: 10
-                    }} key={item}>
-                      <Row>
-                        <Col flex="auto" style={{ textAlign: "right", paddingLeft: 60, margin: "8px 4px" }}>{item[0]}</Col>
-                        <Col flex="40px" style={{ textAlign: "center" }}>
-                          <Avatar size={32} icon={<UserOutlined />} />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col flex="40px" style={{ textAlign: "center" }}>
-                          <Avatar size={32} icon={<RobotOutlined />} />
-                        </Col>
-                        <Col flex="auto" style={{ paddingRight: 100, maxWidth: "90%" }}>{item[1]}</Col>
-                      </Row>
-                    </div>
-                  ))
-                }
-                {
-                  question && <Row>
-                    <Col flex="auto" style={{ textAlign: "right", paddingLeft: 60, margin: "8px 4px" }}>{question}</Col>
-                    <Col flex="40px" style={{ textAlign: "center" }}>
+                {history.length === 0 && !question && (
+                  <div>输入您的商品描述开始撰写文案，持续聊天可以进行修改。</div>
+                )}
+                {history.map((item) => (
+                  <div
+                    style={{
+                      marginBottom: 10,
+                    }}
+                    key={item}
+                  >
+                    <Row>
+                      <Col
+                        flex="auto"
+                        style={{
+                          textAlign: 'right',
+                          paddingLeft: 60,
+                          margin: '8px 4px',
+                          fontSize: '16pt',
+                        }}
+                      >
+                        {item[0]}
+                      </Col>
+                      <Col flex="40px" style={{ textAlign: 'center', fontSize: '16pt' }}>
+                        <Avatar size={32} icon={<UserOutlined />} />
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col flex="40px" style={{ textAlign: 'center', fontSize: '16pt' }}>
+                        <Avatar size={32} icon={<RobotOutlined />} />
+                      </Col>
+                      <Col
+                        flex="auto"
+                        style={{
+                          paddingRight: 100,
+                          maxWidth: '90%',
+                          fontSize: '16pt',
+                          lineHeight: '1.5',
+                        }}
+                      >
+                        {item[1]}
+                      </Col>
+                    </Row>
+                  </div>
+                ))}
+                {question && (
+                  <Row>
+                    <Col
+                      flex="auto"
+                      style={{
+                        textAlign: 'right',
+                        paddingLeft: 60,
+                        margin: '8px 4px',
+                        fontSize: '16pt',
+                      }}
+                    >
+                      {question}
+                    </Col>
+                    <Col flex="40px" style={{ textAlign: 'center', fontSize: '16pt' }}>
                       <Avatar size={32} icon={<UserOutlined />} />
                     </Col>
                   </Row>
-                }
-                {
-                  loading ? <div><LoadingOutlined /></div> : null
-                }
-                {
-                  message && <Row>
-                    <Col flex="40px" style={{ textAlign: "center" }}>
+                )}
+                {loading ? (
+                  <div>
+                    <LoadingOutlined />
+                  </div>
+                ) : null}
+                {message && (
+                  <Row>
+                    <Col flex="40px" style={{ textAlign: 'center' }}>
                       <Avatar size={32} icon={<RobotOutlined />} />
                     </Col>
-                    <Col flex="auto" style={{ paddingRight: 100, maxWidth: "90%" }}>{message}</Col>
+                    <Col
+                      flex="auto"
+                      style={{
+                        paddingRight: 100,
+                        maxWidth: '90%',
+                        fontSize: '16pt',
+                        lineHeight: '1.5',
+                      }}
+                    >
+                      {message}
+                    </Col>
                   </Row>
-                }
+                )}
               </div>
             </div>
           </Col>
         </Row>
-
       </div>
     </PageContainer>
-  )
-}
+  );
+};
 
 export default MarketingText;
-
-
