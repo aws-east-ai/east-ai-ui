@@ -131,13 +131,16 @@ const MarketingText: React.FC = () => {
                   <Select.Option value="product_inpaint">备用模型</Select.Option>
                 </Select>
               </Form.Item>
-              <Form.Item<FieldType> label="参考图片（可选）" name="input_image">
+              <Form.Item<FieldType> label="参考图片（可选）" name="input_image"
+                valuePropName="fieldList">
                 <Upload
                   name="file"
                   action="/api/upload"
+                  className="avatar-uploader"
                   onChange={handleChange}
                   beforeUpload={beforeUpload}
                   maxCount={1}
+                  showUploadList={false}
                 >
                   <Input value={input_image} readOnly />
                 </Upload>

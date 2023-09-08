@@ -7,16 +7,20 @@
   "background_color": "#001529",
   "icons": [
     {
-      "src": "icons/icon-192x192.png",
-      "sizes": "192x192"
+      "src": "icons/touch-icon-ipad-144-smile.png",
+      "sizes": "144x144"
     },
     {
-      "src": "icons/icon-128x128.png",
-      "sizes": "128x128"
+      "src": "icons/touch-icon-iphone-114-smile.png",
+      "sizes": "114x114"
     },
     {
-      "src": "icons/icon-512x512.png",
-      "sizes": "512x512"
+      "src": "icons/touch-icon-ipad-144-smile.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "icons/touch-icon-iphone-114-smile.png",
+      "sizes": "57x57"
     }
   ]
 }

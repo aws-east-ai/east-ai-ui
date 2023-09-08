@@ -32,6 +32,7 @@ const AboutPage: React.FC = () => {
           }}
         >
           <ul>
+            <li>Liang Fengbiao</li>
             <li>Wu Wantao</li>
             <li>Xiao Yuanjun</li>
             <li>Xie Zhengwei</li>

@@ -12,17 +12,6 @@
  */
 export default [
   {
-    path: '/user',
-    layout: false,
-    routes: [
-      {
-        name: 'login',
-        path: '/user/login',
-        component: './User/Login',
-      },
-    ],
-  },
-  {
     path: '/welcome',
     name: 'welcome',
     icon: 'smile',
@@ -43,13 +32,13 @@ export default [
   {
     path: '/inpaint',
     name: 'sd.inpaint',
-    icon: 'FileTextOutlined',
+    icon: 'FileImageOutlined',
     component: './Inpaint',
   },
   {
     path: '/about',
     name: 'about',
-    icon: 'FormatPainterOutlined',
+    icon: 'QuestionOutlined',
     component: './About',
   },
   // {

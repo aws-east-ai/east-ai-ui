@@ -142,6 +142,7 @@ const Inpaint: React.FC = () => {
                 label="产品图片"
                 name="input_image"
                 rules={[{ required: true, message: '请上传原始图片!' }]}
+                valuePropName="fieldList"
               >
                 <Upload
                   name="file"
@@ -283,7 +284,7 @@ const Inpaint: React.FC = () => {
           </Col>
         </Row>
       </div>
-    </PageContainer>
+    </PageContainer >
   );
 };
 
