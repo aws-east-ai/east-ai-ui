@@ -1,7 +1,7 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { Row, Col, theme, Typography, Button, Avatar, Form, Input, Radio } from 'antd';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { writeMarketingText } from '@/services/east-ai/api'
 import Icon, { LoadingOutlined, UserOutlined, RobotOutlined } from '@ant-design/icons';
 
@@ -19,54 +19,17 @@ const MarketingText: React.FC = () => {
     prompt?: string;
     pattern?: string;
   };
-  const [isPaused, setPause] = useState(false);
-  const ws = useRef(null);
 
-  useEffect(() => {
-    var loc = window.location, new_uri;
-    if (loc.protocol === "https:") {
-      new_uri = "wss:";
-    } else {
-      new_uri = "ws:";
-    }
-    new_uri += "//" + loc.host;
-    new_uri += "/api/chat-bot";
-    console.log("11111111", new_uri)
-    // const new_uri = "ws://127.0.0.1:8000/api/chat-bot"
-    console.log(new_uri);
-    ws.current = new WebSocket(new_uri);
-    ws.current.onopen = () => console.log("ws opened");
-    ws.current.onclose = () => console.log("ws closed");
-
-    const wsCurrent = ws.current;
-
-    return () => {
-      wsCurrent.close();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!ws.current) return;
-
-    ws.current.onmessage = e => {
-      if (isPaused) return;
-      const message = e.data;
-      console.log("e", message);
-    };
-  }, [isPaused]);
-
-  // const ws = new WebSocket("ws://")
   const onFinish = async (values: any) => {
     values.history = history;
     setLoading(true);
-    // ws.current.
-    // const res: API.MarketingTextResponse = await writeMarketingText(values);
+    const res: API.MarketingTextResponse = await writeMarketingText(values);
     // console.log(res);
-    // setLoading(false)
+    setLoading(false)
 
-    // history.unshift(res.history[res.history.length - 1])
-    // setResponse(res.response);
-    // setHistory(history)
+    history.unshift(res.history[res.history.length - 1])
+    setResponse(res.response);
+    setHistory(history)
   };
 
   const onFinishFailed = (errorInfo: any) => {
