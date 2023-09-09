@@ -1,5 +1,5 @@
 import { productDesign } from '@/services/east-ai/api';
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import {
   Button,
@@ -13,6 +13,7 @@ import {
   Select,
   theme,
   Upload,
+
 } from 'antd';
 import type { RcFile, UploadChangeParam, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
@@ -104,6 +105,11 @@ const MarketingText: React.FC = () => {
     return isImage && isLt;
   };
 
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <Button icon={<PlusOutlined />} >上传</Button>}
+    </div>
+  );
   return (
     <PageContainer
       waterMarkProps={{
@@ -142,7 +148,15 @@ const MarketingText: React.FC = () => {
                   maxCount={1}
                   showUploadList={false}
                 >
-                  <Input value={input_image} readOnly />
+                  {input_image ? (
+                    <img
+                      src={"/api/s3-image/" + input_image}
+                      alt="avatar"
+                      style={{ maxHeight: 320, maxWidth: 320 }}
+                    />
+                  ) : (
+                    uploadButton
+                  )}
                 </Upload>
               </Form.Item>
               <Form.Item<FieldType>

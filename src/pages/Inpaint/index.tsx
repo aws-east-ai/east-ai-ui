@@ -75,8 +75,7 @@ const Inpaint: React.FC = () => {
 
   const uploadButton = (
     <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
+      {loading ? <LoadingOutlined /> : <Button icon={<PlusOutlined />} >上传</Button>}
     </div>
   );
 
@@ -155,7 +154,7 @@ const Inpaint: React.FC = () => {
                 >
                   {input_image ? (
                     <img
-                      src={toHttpImage(input_image)}
+                      src={"/api/s3-image/" + input_image}
                       alt="avatar"
                       style={{ maxHeight: 320, maxWidth: 320 }}
                     />
