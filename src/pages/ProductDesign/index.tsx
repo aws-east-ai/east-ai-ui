@@ -151,7 +151,7 @@ const MarketingText: React.FC = () => {
                   {input_image ? (
                     <img
                       src={"/api/s3-image/" + input_image}
-                      alt="avatar"
+                      alt="product image"
                       style={{ maxHeight: 320, maxWidth: 320 }}
                     />
                   ) : (
