@@ -45,7 +45,7 @@ const MarketingText: React.FC = () => {
       let jObject;
       try {
         jObject = JSON.parse(revStr);
-      } catch (e) {}
+      } catch (e) { }
 
       if (jObject && jObject.status === 'done') {
         setHistory(jObject.history);
@@ -188,17 +188,18 @@ const MarketingText: React.FC = () => {
                     }}
                     key={item}
                   >
-                    <Row>
+                    <Row justify="end">
                       <Col
-                        flex="auto"
+                        flex="1"
                         style={{
-                          textAlign: 'right',
+                          textAlign: 'left',
                           paddingLeft: 60,
                           margin: '8px 4px',
                           fontSize: '16pt',
+
                         }}
                       >
-                        {item[0]}
+                        <div style={{ backgroundColor: '#666', width: 'fit-content', padding: '5px', borderRadius: '4px' }}>{item[0]}</div>
                       </Col>
                       <Col flex="40px" style={{ textAlign: 'center', fontSize: '16pt' }}>
                         <Avatar size={32} icon={<UserOutlined />} />
@@ -225,17 +226,19 @@ const MarketingText: React.FC = () => {
                 {question && (
                   <Row>
                     <Col
-                      flex="auto"
+                      flex="1"
                       style={{
-                        textAlign: 'right',
+                        textAlign: 'left',
                         paddingLeft: 60,
                         margin: '8px 4px',
                         fontSize: '16pt',
+
                       }}
                     >
-                      {question}
+
+                      <div style={{ backgroundColor: '#666', width: 'fit-content', padding: '5px', borderRadius: '4px' }}>{question}</div>
                     </Col>
-                    <Col flex="40px" style={{ textAlign: 'center', fontSize: '16pt' }}>
+                    <Col flex="40px" style={{ textAlign: 'center', }}>
                       <Avatar size={32} icon={<UserOutlined />} />
                     </Col>
                   </Row>
