@@ -193,20 +193,20 @@ const MarketingText: React.FC = () => {
                         flex="1"
                         style={{
                           textAlign: 'left',
-                          paddingLeft: 60,
+                          paddingLeft: 100,
                           margin: '8px 4px',
                           fontSize: '16pt',
 
                         }}
                       >
-                        <div style={{ backgroundColor: '#666', width: 'fit-content', padding: '5px', borderRadius: '4px' }}>{item[0]}</div>
+                        <div style={{ backgroundColor: '#666', width: 'auto', padding: '5px', borderRadius: '4px', marginBottom: "25px" }}>{item[0]}</div>
                       </Col>
-                      <Col flex="40px" style={{ textAlign: 'center', fontSize: '16pt' }}>
+                      <Col flex="40px" style={{ textAlign: 'center', marginTop: "8px" }}>
                         <Avatar size={32} icon={<UserOutlined />} />
                       </Col>
                     </Row>
                     <Row>
-                      <Col flex="40px" style={{ textAlign: 'center', fontSize: '16pt' }}>
+                      <Col flex="40px" style={{ textAlign: 'center', marginTop: "4px" }}>
                         <Avatar size={32} icon={<RobotOutlined />} />
                       </Col>
                       <Col
@@ -216,9 +216,12 @@ const MarketingText: React.FC = () => {
                           maxWidth: '90%',
                           fontSize: '16pt',
                           lineHeight: '1.5',
+                          marginBottom: "30px"
                         }}
                       >
-                        {item[1]}
+                        <pre style={{ wordWrap: "break-word", whiteSpace: "pre-wrap" }}>
+                          {item[1]}
+                        </pre>
                       </Col>
                     </Row>
                   </div>
@@ -229,16 +232,14 @@ const MarketingText: React.FC = () => {
                       flex="1"
                       style={{
                         textAlign: 'left',
-                        paddingLeft: 60,
+                        paddingLeft: 100,
                         margin: '8px 4px',
                         fontSize: '16pt',
-
                       }}
                     >
-
-                      <div style={{ backgroundColor: '#666', width: 'fit-content', padding: '5px', borderRadius: '4px' }}>{question}</div>
+                      <div style={{ backgroundColor: '#666', width: 'auto', padding: '5px', borderRadius: '4px', marginBottom: "25px" }}>{question}</div>
                     </Col>
-                    <Col flex="40px" style={{ textAlign: 'center', }}>
+                    <Col flex="40px" style={{ textAlign: 'center', marginTop: "8px" }}>
                       <Avatar size={32} icon={<UserOutlined />} />
                     </Col>
                   </Row>
@@ -250,7 +251,7 @@ const MarketingText: React.FC = () => {
                 ) : null}
                 {message && (
                   <Row>
-                    <Col flex="40px" style={{ textAlign: 'center' }}>
+                    <Col flex="40px" style={{ textAlign: 'center', marginTop: "4px" }}>
                       <Avatar size={32} icon={<RobotOutlined />} />
                     </Col>
                     <Col
@@ -260,9 +261,12 @@ const MarketingText: React.FC = () => {
                         maxWidth: '90%',
                         fontSize: '16pt',
                         lineHeight: '1.5',
+                        marginBottom: "30px"
                       }}
                     >
-                      {message}
+                      <pre style={{ wordWrap: "break-word", whiteSpace: "pre-wrap" }}>
+                        {message}
+                      </pre>
                     </Col>
                   </Row>
                 )}
