@@ -4,8 +4,8 @@ export default {
   //*****新增内容******* */
   'menu.llm.marketing-text': '营销文案',
   'menu.llm.customer-bot': '智能客服',
-  'menu.sd.product-design': '产品创意',
-  'menu.sd.inpaint': '产品配图',
+  'menu.sd.product-design': '创意设计',
+  'menu.sd.inpaint': '背景变焕',
   'menu.admin.kb-data': '知识库',
   'menu.about': '关于 Workshop',
   //************ */
