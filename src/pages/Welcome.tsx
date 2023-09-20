@@ -111,7 +111,7 @@ const Welcome: React.FC = () => {
               color: token.colorTextHeading,
             }}
           >
-            亚马逊云科技跨境电商场景生成式AI Workshop
+            亚马逊云科技营销场景生成式 AI Workshop
           </div>
           <p
             style={{
