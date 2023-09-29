@@ -49,7 +49,7 @@ const InfoCard: React.FC<{
             padding: '8px 16px 16px 12px',
             color: '#FFF',
             fontWeight: 'bold',
-            backgroundImage: "url('../../rectangle.svg')",
+            backgroundImage: "url('rectangle.svg')",
           }}
         >
           {index}
@@ -111,7 +111,7 @@ const Welcome: React.FC = () => {
               color: token.colorTextHeading,
             }}
           >
-            亚马逊云科技营销场景生成式 AI Workshop
+            亚马逊云科技 Workshop - 营销场景生成式 AI
           </div>
           <p
             style={{
@@ -123,7 +123,7 @@ const Welcome: React.FC = () => {
               width: '65%',
             }}
           >
-            本 Workshop 展示了如何通过一个简单的自定义UI让AIGC为业务赋能
+            通过本工具来展示了如何通过一个简单的自定义UI让AIGC为业务赋能
           </p>
           <div
             style={{

@@ -15,7 +15,7 @@ const Settings: ProLayoutProps & {
   fixedHeader: true,
   fixSiderbar: true,
   colorWeak: false,
-  title: '生成式AI Workshop',
+  title: '营销场景生成式 AI',
   pwa: true,
   splitMenus: false,
   siderMenuType: 'sub',

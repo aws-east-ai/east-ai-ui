@@ -76,7 +76,7 @@ export default defineConfig({
    * @name layout 插件
    * @doc https://umijs.org/docs/max/layout-menu
    */
-  title: '亚马逊云科技跨境电商GenAI Workshop',
+  title: '营销场景 GenAI 工作台',
   layout: {
     locale: true,
     ...defaultSettings,
