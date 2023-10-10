@@ -144,8 +144,8 @@ const Welcome: React.FC = () => {
           >
             <InfoCard
               index={1}
-              href="#"
-              title="动手实验手册"
+              href="https://catalog.us-east-1.prod.workshops.aws/workshops/4aec1efd-5181-46be-b7b1-2ee9292dae80/zh-CN"
+              title="部署实验手册"
               desc="通过实验手册，指导您一步步将本系统部署至自有帐号中"
             />
             <InfoCard
