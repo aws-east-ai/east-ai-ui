@@ -115,7 +115,7 @@ const Welcome: React.FC = () => {
           </div>
           <p
             style={{
-              fontSize: '14px',
+              fontSize: '16px',
               color: token.colorTextSecondary,
               lineHeight: '22px',
               marginTop: 16,
@@ -123,7 +123,17 @@ const Welcome: React.FC = () => {
               width: '65%',
             }}
           >
-            通过本工具来展示了如何通过一个简单的自定义UI让AIGC为业务赋能
+            <ul style={{ paddingLeft: 10 }}>
+              <li>
+                本工具完整的展示了如何利用Amazon SageMaker, 大模型,
+                和前后端框架来构建一个基于业务场景的生成式AI应用。
+              </li>
+              <li>
+                体验最新的专为大模型推理性能优化的新框架和技术，如：SageMaker LMI, DJL,
+                Streaming等。
+              </li>
+              <li>用户界面友好，易用。用于和客户的沟通和交流，启发更多业务场景。</li>
+            </ul>
           </p>
           <div
             style={{
