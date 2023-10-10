@@ -15,7 +15,16 @@ export async function writeMarketingText(data: API.MarketingTextRequest, options
 
 export async function productDesign(data: API.ProductDesignRequest, options?: { [key: string]: any }) {
   // console.log({ ...(options || {}) })
-  // console.log(data);
+  console.log(data);
+  if (data.model_id == "bedrock_sdxl") {
+    return request<{
+      data: API.ProductDesignRequest;
+    }>('/api/bedrock-sdxl', {
+      method: 'POST',
+      data,
+      ...(options || {}),
+    });
+  }
   return request<{
     data: API.ProductDesignRequest;
   }>('/api/product-design', {

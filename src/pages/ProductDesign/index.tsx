@@ -134,7 +134,7 @@ const MarketingText: React.FC = () => {
               <Form.Item<FieldType> label="模型选择" name="model_id">
                 <Select>
                   <Select.Option value="product_design">真实风格模型</Select.Option>
-                  <Select.Option value="product_inpaint">备用模型</Select.Option>
+                  <Select.Option value="bedrock_sdxl">SDXL(bedrock)</Select.Option>
                 </Select>
               </Form.Item>
               <Form.Item<FieldType> label="参考图片（可选）" name="input_image"
