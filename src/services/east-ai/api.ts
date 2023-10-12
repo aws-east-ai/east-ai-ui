@@ -19,7 +19,7 @@ export async function productDesign(data: API.ProductDesignRequest, options?: { 
   if (data.model_id == "bedrock_sdxl") {
     return request<{
       data: API.ProductDesignRequest;
-    }>('/api/bedrock-sdxl', {
+    }>('/api/bedrock-product-design', {
       method: 'POST',
       data,
       ...(options || {}),
