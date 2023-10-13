@@ -13,11 +13,10 @@ import {
   Select,
   theme,
   Upload,
-
 } from 'antd';
 import type { RcFile, UploadChangeParam, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // const { Title } = Typography;
 
@@ -26,6 +25,16 @@ const MarketingText: React.FC = () => {
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(false);
   const [input_image, setInput_image] = useState();
+  const [model_id, setModel_id] = useState("product_design");
+
+  // useEffect(() => {
+  //   setModel_id('product_design');
+  //   setInput_image('');
+  //   setResponse([]);
+  //   setLoading(false);
+  //   return () => { };
+
+  // }, []);
 
   type FieldType = {
     model_id?: string;
@@ -38,16 +47,23 @@ const MarketingText: React.FC = () => {
     height?: number;
     count?: number;
     input_image?: string;
+    style_preset?: string;
   };
 
   const onFinish = async (values: any) => {
     // console.log(values)
     setLoading(true);
+    values.prompt = `3D product render, ${values.prompt}, finely detailed, purism, ue 5, a computer rendering, minimalism, octane render, 4k`
     if (input_image && input_image.length > 1) {
       values.input_image = input_image;
     }
     const res: API.ProductDesignResponse = await productDesign(values);
     // console.log(res);
+    if (res.error) {
+      message.error(res.error);
+      setLoading(false);
+      return;
+    }
     setResponse(res['images']);
     setLoading(false);
   };
@@ -61,6 +77,25 @@ const MarketingText: React.FC = () => {
   //   // writeMarketingText(pattern);
   // }
   const samplers = ['euler_a', 'eular', 'heun', 'lms', 'dpm2', 'dpm2_a', 'ddim'];
+  const style_presets = [
+    "enhance",
+    "anime",
+    "photographic",
+    "digital-art",
+    "comic-book",
+    "fantasy-art",
+    "analog-film",
+    "neon-punk",
+    "isometric",
+    "low-poly",
+    "origami",
+    "line-art",
+    "craft-clay",
+    "cinematic",
+    "3d-model",
+    "pixel-art",
+  ];
+
   const defaultValues = {
     prompt:
       'futuristic armchair',
@@ -73,6 +108,7 @@ const MarketingText: React.FC = () => {
     width: 512,
     count: 1,
     model_id: 'product_design',
+    style_preset: '3d-model'
   };
 
   const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
@@ -104,6 +140,10 @@ const MarketingText: React.FC = () => {
     // return false;
     return isImage && isLt;
   };
+  const handleModelChange = (value: string) => {
+    // alert(value);
+    setModel_id(value);
+  }
 
   const uploadButton = (
     <div>
@@ -132,33 +172,35 @@ const MarketingText: React.FC = () => {
               initialValues={defaultValues}
             >
               <Form.Item<FieldType> label="模型选择" name="model_id">
-                <Select>
+                <Select onChange={handleModelChange}>
                   <Select.Option value="product_design">真实风格模型</Select.Option>
                   <Select.Option value="bedrock_sdxl">SDXL(bedrock)</Select.Option>
                 </Select>
               </Form.Item>
-              <Form.Item<FieldType> label="参考图片（可选）" name="input_image"
-                valuePropName="fieldList">
-                <Upload
-                  name="file"
-                  action="/api/upload"
-                  className="avatar-uploader"
-                  onChange={handleChange}
-                  beforeUpload={beforeUpload}
-                  maxCount={1}
-                  showUploadList={false}
-                >
-                  {input_image ? (
-                    <img
-                      src={"/api/s3-image/" + input_image}
-                      alt="product image"
-                      style={{ maxHeight: 320, maxWidth: 320 }}
-                    />
-                  ) : (
-                    uploadButton
-                  )}
-                </Upload>
-              </Form.Item>
+              {
+                model_id == "product_design" ? <Form.Item<FieldType> label="参考图片（可选）" name="input_image"
+                  valuePropName="fieldList">
+                  <Upload
+                    name="file"
+                    action="/api/upload"
+                    className="avatar-uploader"
+                    onChange={handleChange}
+                    beforeUpload={beforeUpload}
+                    maxCount={1}
+                    showUploadList={false}
+                  >
+                    {input_image ? (
+                      <img
+                        src={"/api/s3-image/" + input_image}
+                        alt="product image"
+                        style={{ maxHeight: 320, maxWidth: 320 }}
+                      />
+                    ) : (
+                      uploadButton
+                    )}
+                  </Upload>
+                </Form.Item> : null
+              }
               <Form.Item<FieldType>
                 label="生成内容提示词"
                 name="prompt"
@@ -194,7 +236,7 @@ const MarketingText: React.FC = () => {
                     name="width"
                     rules={[{ required: true, message: '宽度!' }]}
                   >
-                    <InputNumber min={128} max={1024} />
+                    <InputNumber min={128} max={model_id == "product_design" ? 1024 : 768} />
                   </Form.Item>
                 </Col>
                 <Col span={8}>
@@ -203,17 +245,32 @@ const MarketingText: React.FC = () => {
                     name="height"
                     rules={[{ required: true, message: '高度!' }]}
                   >
-                    <InputNumber min={128} max={1024} />
+                    <InputNumber min={128} max={model_id == "product_design" ? 1024 : 768} />
                   </Form.Item>
                 </Col>
                 <Col span={8}>
-                  <Form.Item<FieldType>
-                    label="图片数量"
-                    name="count"
-                    rules={[{ required: true, message: '图片数量!' }]}
-                  >
-                    <InputNumber min={1} max={4} />
-                  </Form.Item>
+                  {
+                    model_id == "product_design" ?
+                      <Form.Item<FieldType>
+                        label="图片数量"
+                        name="count"
+                        rules={[{ required: true, message: '图片数量!' }]}
+                      >
+                        <InputNumber min={1} max={4} />
+                      </Form.Item> : null
+                  }
+                  {
+                    model_id == "bedrock_sdxl" ?
+                      <Form.Item<FieldType> label="图片样式" name="style_preset">
+                        <Select>
+                          {style_presets.map((s) => (
+                            <Select.Option key={s} value={s}>
+                              {s}
+                            </Select.Option>
+                          ))}
+                        </Select>
+                      </Form.Item> : null
+                  }
                 </Col>
               </Row>
               <Row style={{ display: 'none' }}>
@@ -250,7 +307,7 @@ const MarketingText: React.FC = () => {
                 </Col>
               </Row>
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" disabled={loading}>
                   开始生成
                 </Button>
               </Form.Item>
