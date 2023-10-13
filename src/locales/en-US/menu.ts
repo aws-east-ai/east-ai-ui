@@ -1,9 +1,9 @@
 export default {
   //*****新增内容******* */
-  'menu.llm.marketing-text': 'Marketing Text',
-  'menu.llm.customer-service': 'Customer Bot',
-  'menu.sd.product-edit': 'Product Inpaint',
-  'menu.admin.kb-data': "KnowledgeBase",
+  'menu.llm.marketing-text': '营销文案',
+  'menu.sd.product-design': '创意设计',
+  'menu.sd.inpaint': '背景变焕',
+  'menu.about': 'About',
   //************ */
   'menu.welcome': 'Welcome',
   'menu.more-blocks': 'More Blocks',
