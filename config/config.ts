@@ -7,6 +7,7 @@ import routes from './routes';
 
 const { REACT_APP_ENV = 'dev' } = process.env;
 
+
 export default defineConfig({
   /**
    * @name 开启 hash 模式
@@ -76,7 +77,7 @@ export default defineConfig({
    * @name layout 插件
    * @doc https://umijs.org/docs/max/layout-menu
    */
-  title: '营销场景 GenAI 工作台',
+  // title: '营销场景 GenAI 工作台',
   layout: {
     locale: true,
     ...defaultSettings,

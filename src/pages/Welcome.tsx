@@ -17,7 +17,6 @@ const InfoCard: React.FC<{
 
   const intl = useIntl();
   const { useToken } = theme;
-
   const { token } = useToken();
 
   return (

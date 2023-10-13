@@ -2,11 +2,13 @@ import { LoadingOutlined, RobotOutlined, UserOutlined } from '@ant-design/icons'
 import { PageContainer } from '@ant-design/pro-components';
 import { Avatar, Button, Col, Form, Input, Radio, Row, theme } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
+import { useIntl } from '@umijs/max';
 
 // const { Title } = Typography;
 
 const MarketingText: React.FC = () => {
   const { token } = theme.useToken();
+  const intl = useIntl();
   //  const { initialState } = useModel('@@initialState');
   const [pattern, setPattern] = useState('redbook');
   // const [response, setResponse] = useState();
@@ -138,20 +140,31 @@ const MarketingText: React.FC = () => {
               initialValues={defaultValues}
             >
               <Form.Item<FieldType>
-                label="商品描述"
+                label={intl.formatMessage({
+                  id: 'pages.marketingText.prompt.title',
+                })}
                 name="prompt"
-                rules={[{ required: true, message: '请输入商品特性，描述等内容!' }]}
+                rules={[{
+                  required: true, message: intl.formatMessage({
+                    id: 'pages.marketingText.prompt.required',
+                  })
+                }]}
               >
                 <Input.TextArea
                   showCount
                   maxLength={500}
-                  placeholder="请输入商品特性，描述等内容!"
+                  placeholder={intl.formatMessage({
+                    id: 'pages.marketingText.prompt.placeholder',
+                  })}
                   allowClear
                   style={{ height: 180 }}
                 />
               </Form.Item>
 
-              <Form.Item<FieldType> label="风格" name="pattern">
+              <Form.Item<FieldType>
+                label={intl.formatMessage({
+                  id: 'pages.marketingText.style.title',
+                })} name="pattern">
                 <Radio.Group
                   options={patterns}
                   onChange={onPatternChange}
@@ -163,7 +176,9 @@ const MarketingText: React.FC = () => {
 
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                 <Button type="primary" htmlType="submit" disabled={loading}>
-                  开始生成
+                  {intl.formatMessage({
+                    id: 'pages.common.buttonBeginGen',
+                  })}
                 </Button>
               </Form.Item>
             </Form>
@@ -179,7 +194,7 @@ const MarketingText: React.FC = () => {
             >
               <div style={comego}>
                 {history.length === 0 && !question && (
-                  <div>输入您的商品描述开始撰写文案，持续聊天可以进行修改。</div>
+                  <div>{intl.formatMessage({ id: 'pages.marketingText.result.help' })} </div>
                 )}
                 {history.map((item) => (
                   <div

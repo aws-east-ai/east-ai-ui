@@ -16,25 +16,17 @@ import {
 } from 'antd';
 import type { RcFile, UploadChangeParam, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
-import React, { useEffect, useState } from 'react';
-
-// const { Title } = Typography;
+import React, { useState } from 'react';
+import { useIntl } from '@umijs/max';
 
 const MarketingText: React.FC = () => {
+
+  const intl = useIntl();
   const { token } = theme.useToken();
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(false);
   const [input_image, setInput_image] = useState();
   const [model_id, setModel_id] = useState("product_design");
-
-  // useEffect(() => {
-  //   setModel_id('product_design');
-  //   setInput_image('');
-  //   setResponse([]);
-  //   setLoading(false);
-  //   return () => { };
-
-  // }, []);
 
   type FieldType = {
     model_id?: string;
@@ -171,14 +163,24 @@ const MarketingText: React.FC = () => {
               layout="vertical"
               initialValues={defaultValues}
             >
-              <Form.Item<FieldType> label="模型选择" name="model_id">
+              <Form.Item<FieldType> label={intl.formatMessage({
+                id: 'pages.productDesign.modelId.title'
+              })} name="model_id">
                 <Select onChange={handleModelChange}>
-                  <Select.Option value="product_design">真实风格模型</Select.Option>
-                  <Select.Option value="bedrock_sdxl">SDXL(bedrock)</Select.Option>
+                  <Select.Option value="product_design">{
+                    intl.formatMessage({ id: 'pages.productDesign.model.realityStyle' })
+                  }</Select.Option>
+                  <Select.Option value="bedrock_sdxl">{
+                    intl.formatMessage({ id: 'pages.productDesign.model.bedrockSDXL' })
+                  }
+                  </Select.Option>
                 </Select>
               </Form.Item>
               {
-                model_id == "product_design" ? <Form.Item<FieldType> label="参考图片（可选）" name="input_image"
+                model_id == "product_design" ? <Form.Item<FieldType> label={intl.formatMessage({
+                  id: 'pages.productDesign.inputImage.title'
+                })}
+                  name="input_image"
                   valuePropName="fieldList">
                   <Upload
                     name="file"
@@ -201,29 +203,30 @@ const MarketingText: React.FC = () => {
                   </Upload>
                 </Form.Item> : null
               }
-              <Form.Item<FieldType>
-                label="生成内容提示词"
+              <Form.Item<FieldType> label={intl.formatMessage({
+                id: 'pages.productDesign.prompt.title'
+              })}
                 name="prompt"
-                rules={[{ required: true, message: '请输入商品特点等内容!' }]}
+                rules={[{ required: true }]}
               >
                 <Input.TextArea
                   showCount
                   maxLength={500}
-                  placeholder="请输入商品特点等内容!"
                   allowClear
                   style={{ height: 120 }}
                 />
               </Form.Item>
 
               <Form.Item<FieldType>
-                label="避免出现在画面中的内容"
+                label={intl.formatMessage({
+                  id: 'pages.productDesign.nprompt.title'
+                })}
                 name="negative_prompt"
-                rules={[{ required: true, message: '请输入反向提示词!' }]}
+                rules={[{ required: true }]}
               >
                 <Input.TextArea
                   showCount
                   maxLength={500}
-                  placeholder="请输入您不想在产品中出现的元素"
                   allowClear
                   style={{ height: 120 }}
                 />
@@ -232,18 +235,22 @@ const MarketingText: React.FC = () => {
               <Row>
                 <Col span={8}>
                   <Form.Item<FieldType>
-                    label="宽(px)"
+                    label={intl.formatMessage({
+                      id: 'pages.productDesign.width.title'
+                    })}
                     name="width"
-                    rules={[{ required: true, message: '宽度!' }]}
+                    rules={[{ required: true, }]}
                   >
                     <InputNumber min={128} max={model_id == "product_design" ? 1024 : 768} />
                   </Form.Item>
                 </Col>
                 <Col span={8}>
                   <Form.Item<FieldType>
-                    label="高(px)"
+                    label={intl.formatMessage({
+                      id: 'pages.productDesign.height.title'
+                    })}
                     name="height"
-                    rules={[{ required: true, message: '高度!' }]}
+                    rules={[{ required: true }]}
                   >
                     <InputNumber min={128} max={model_id == "product_design" ? 1024 : 768} />
                   </Form.Item>
@@ -252,16 +259,22 @@ const MarketingText: React.FC = () => {
                   {
                     model_id == "product_design" ?
                       <Form.Item<FieldType>
-                        label="图片数量"
+                        label={intl.formatMessage({
+                          id: 'pages.productDesign.count.title'
+                        })}
                         name="count"
-                        rules={[{ required: true, message: '图片数量!' }]}
+                        rules={[{ required: true }]}
                       >
                         <InputNumber min={1} max={4} />
                       </Form.Item> : null
                   }
                   {
                     model_id == "bedrock_sdxl" ?
-                      <Form.Item<FieldType> label="图片样式" name="style_preset">
+                      <Form.Item<FieldType>
+                        label={intl.formatMessage({
+                          id: 'pages.productDesign.stylePreset.title'
+                        })}
+                        name="style_preset">
                         <Select>
                           {style_presets.map((s) => (
                             <Select.Option key={s} value={s}>
@@ -308,7 +321,9 @@ const MarketingText: React.FC = () => {
               </Row>
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                 <Button type="primary" htmlType="submit" disabled={loading}>
-                  开始生成
+                  {intl.formatMessage({
+                    id: 'pages.common.buttonBeginGen'
+                  })}
                 </Button>
               </Form.Item>
             </Form>

@@ -1,5 +1,5 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
+import { useModel, useIntl } from '@umijs/max';
 import { Row, Col, theme, Typography, Button, Space, Form, Input, Radio } from 'antd';
 import React, { useState, useEffect } from 'react';
 
@@ -8,6 +8,7 @@ const { Title } = Typography;
 const CustomerBot: React.FC = () => {
   const { token } = theme.useToken();
   const { initialState } = useModel('@@initialState');
+  const intl = useIntl();
 
 
   useEffect(() => {

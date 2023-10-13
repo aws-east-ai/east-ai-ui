@@ -26,7 +26,10 @@ const Footer: React.FC = () => {
         },
         {
           key: 'Amazon-AWS-CN',
-          title: '亚马逊云科技',
+          title: intl.formatMessage({
+            id: 'app.copyright.corp',
+            defaultMessage: 'AWS',
+          }),
           href: 'https://www.amazonaws.cn/',
           blankTarget: true,
         },

@@ -17,10 +17,12 @@ import {
 import type { RcFile, UploadChangeParam, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
 import React, { useState } from 'react';
+import { useIntl } from '@umijs/max';
 
 // const { Title } = Typography;
 
 const Inpaint: React.FC = () => {
+  const intl = useIntl();
   const { token } = theme.useToken();
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -75,7 +77,7 @@ const Inpaint: React.FC = () => {
 
   const uploadButton = (
     <div>
-      {loading ? <LoadingOutlined /> : <Button icon={<PlusOutlined />} >上传</Button>}
+      {loading ? <LoadingOutlined /> : <Button icon={<PlusOutlined />} >{intl.formatMessage({ id: 'pages.common.buttonUpload' })}</Button>}
     </div>
   );
 
@@ -130,15 +132,19 @@ const Inpaint: React.FC = () => {
               layout="vertical"
               initialValues={defaultValues}
             >
-              <Form.Item<FieldType> label="模型选择" name="model_id">
+              <Form.Item<FieldType>
+                label={intl.formatMessage({ id: 'pages.inpainting.modelId.title' })}
+                name="model_id">
                 <Select>
-                  <Select.Option value="product_design">抠图渲染模型</Select.Option>
+                  <Select.Option value="product_design">{
+                    intl.formatMessage({ id: 'pages.inpainting.model.realityStyle' })
+                  }</Select.Option>
                   <Select.Option value="product_inpaint">备用模型</Select.Option>
                 </Select>
               </Form.Item>
 
               <Form.Item<FieldType>
-                label="产品图片"
+                label={intl.formatMessage({ id: 'pages.inpainting.inputImage.title' })}
                 name="input_image"
                 rules={[{ required: true, message: '请上传原始图片!' }]}
                 valuePropName="fieldList"
@@ -165,35 +171,35 @@ const Inpaint: React.FC = () => {
               </Form.Item>
 
               <Form.Item<FieldType>
-                label="产品描述"
+                label={intl.formatMessage({ id: 'pages.inpainting.samPrompt.title' })}
                 name="sam_prompt"
-                rules={[{ required: true, message: '请描述您上传图片的中需要保留的内容!' }]}
+                rules={[{ required: true }]}
               >
-                <Input placeholder="请描述您上传图片的中需要保留的内容!" />
+                <Input placeholder={intl.formatMessage({ id: 'pages.inpainting.samPrompt.placeHolder' })} />
               </Form.Item>
               <Form.Item<FieldType>
-                label="背景提示词"
+                label={intl.formatMessage({ id: 'pages.inpainting.prompt.title' })}
                 name="prompt"
-                rules={[{ required: true, message: '请输入重绘内容!' }]}
+                rules={[{ required: true }]}
               >
                 <Input.TextArea
                   showCount
                   maxLength={500}
-                  placeholder="除了保留的内容，其他地方您想画什么？"
+                  placeholder={intl.formatMessage({ id: 'pages.inpainting.prompt.placeHolder' })}
                   allowClear
                   style={{ height: 120 }}
                 />
               </Form.Item>
 
               <Form.Item<FieldType>
-                label="避免出现在画面中的内容"
+                label={intl.formatMessage({ id: 'pages.inpainting.nprompt.title' })}
                 name="negative_prompt"
-                rules={[{ required: true, message: '请输入反向提示词!' }]}
+                rules={[{ required: true }]}
               >
                 <Input.TextArea
                   showCount
                   maxLength={500}
-                  placeholder="请输入您不想在重会区域中出现的内容"
+                  placeholder={intl.formatMessage({ id: 'pages.inpainting.nprompt.placeHolder' })}
                   allowClear
                   style={{ height: 120 }}
                 />
@@ -202,9 +208,9 @@ const Inpaint: React.FC = () => {
               <Row>
                 <Col span={24}>
                   <Form.Item<FieldType>
-                    label="图片数量"
+                    label={intl.formatMessage({ id: 'pages.inpainting.count.title' })}
                     name="count"
-                    rules={[{ required: true, message: '图片数量!' }]}
+                    rules={[{ required: true }]}
                   >
                     <InputNumber min={1} max={4} />
                   </Form.Item>
@@ -245,7 +251,9 @@ const Inpaint: React.FC = () => {
               </Row>
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                 <Button type="primary" htmlType="submit">
-                  开始生成
+                  {intl.formatMessage({
+                    id: 'pages.common.buttonBeginGen'
+                  })}
                 </Button>
               </Form.Item>
             </Form>

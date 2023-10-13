@@ -3,6 +3,7 @@ import { SelectLang } from '@/components/RightContent';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
+import { useIntl } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 import React from 'react';
@@ -31,7 +32,9 @@ export async function getInitialState(): Promise<{
 }
 
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
+  const intl = useIntl();
   return {
+    title: intl.formatMessage({ id: "app.name" }),
     actionsRender: () => [<SelectLang key="SelectLang" />],
     waterMarkProps: {
       content: initialState?.currentUser?.name,

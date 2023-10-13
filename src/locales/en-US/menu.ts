@@ -1,6 +1,6 @@
 export default {
   //*****新增内容******* */
-  'menu.llm.marketing-text': 'Marketing',
+  'menu.llm.marketing-text': 'Marketing copy',
   'menu.sd.product-design': 'Product design',
   'menu.sd.inpaint': 'Inpaiting',
   'menu.about': 'About',
@@ -52,7 +52,4 @@ export default {
   'menu.account.trigger': 'Trigger Error',
   'menu.account.logout': 'Logout',
   'menu.editor': 'Graphic Editor',
-  'menu.editor.flow': 'Flow Editor',
-  'menu.editor.mind': 'Mind Editor',
-  'menu.editor.koni': 'Koni Editor',
 };
