@@ -1,6 +1,6 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
-import { Card, theme } from 'antd';
+import { useModel, useIntl } from '@umijs/max';
+import { Card, theme, } from 'antd';
 import React from 'react';
 
 /**
@@ -14,6 +14,8 @@ const InfoCard: React.FC<{
   desc: string;
   href: string;
 }> = ({ title, href, index, desc }) => {
+
+  const intl = useIntl();
   const { useToken } = theme;
 
   const { token } = useToken();
@@ -76,13 +78,20 @@ const InfoCard: React.FC<{
         {desc}
       </div>
       <a href={href} target="_blank" rel="noreferrer">
-        了解更多 {'>'}
+        {intl.formatMessage({
+          id: 'pages.common.knowMore',
+          defaultMessage: 'Know more',
+        })}
+
+        {'>'}
       </a>
     </div>
   );
 };
 
 const Welcome: React.FC = () => {
+
+  const intl = useIntl();
   const { token } = theme.useToken();
   const { initialState } = useModel('@@initialState');
   return (
@@ -111,7 +120,10 @@ const Welcome: React.FC = () => {
               color: token.colorTextHeading,
             }}
           >
-            亚马逊云科技 Workshop - 营销场景生成式 AI
+            {intl.formatMessage({
+              id: 'pages.welcome.title',
+              defaultMessage: 'AWS Workshop - GenAI for Marketing Scenario',
+            })}
           </div>
           <p
             style={{
@@ -123,16 +135,12 @@ const Welcome: React.FC = () => {
               width: '65%',
             }}
           >
-            <ul style={{ paddingLeft: 10 }}>
-              <li>
-                本工具完整的展示了如何利用Amazon SageMaker, 大模型,
-                和前后端框架来构建一个基于业务场景的生成式AI应用。
-              </li>
-              <li>
-                体验最新的专为大模型推理性能优化的新框架和技术，如：SageMaker LMI, DJL,
-                Streaming等。
-              </li>
-              <li>用户界面友好，易用。用于和客户的沟通和交流，启发更多业务场景。</li>
+            <ul style={{ paddingLeft: 10 }} dangerouslySetInnerHTML={{
+              __html: intl.formatMessage({
+                id: 'pages.welcome.brief',
+                defaultMessage: '',
+              })
+            }} >
             </ul>
           </p>
           <div
@@ -144,21 +152,33 @@ const Welcome: React.FC = () => {
           >
             <InfoCard
               index={1}
-              href="https://catalog.us-east-1.prod.workshops.aws/workshops/4aec1efd-5181-46be-b7b1-2ee9292dae80/zh-CN"
-              title="部署实验手册"
-              desc="通过实验手册，指导您一步步将本系统部署至自有帐号中"
+              href="https://catalog.us-east-1.prod.workshops.aws/workshops/4aec1efd-5181-46be-b7b1-2ee9292dae80"
+              title={intl.formatMessage({
+                id: 'pages.welcome.infoCard01.title',
+              })}
+              desc={intl.formatMessage({
+                id: 'pages.welcome.infoCard01.desc',
+              })}
             />
             <InfoCard
               index={2}
-              title="亚马逊云科技生成式AI"
+              title={intl.formatMessage({
+                id: 'pages.welcome.infoCard02.title',
+              })}
               href="https://aws.amazon.com/generative-ai/"
-              desc="帮助客户更快地创新，重塑客户体验和应用程序"
+              desc={intl.formatMessage({
+                id: 'pages.welcome.infoCard02.desc',
+              })}
             />
             <InfoCard
               index={3}
-              title="了解亚马逊云科技"
+              title={intl.formatMessage({
+                id: 'pages.welcome.infoCard03.title',
+              })}
               href="https://aws.amazon.com/"
-              desc="全球领先的云计算平台，提供强大的计算、存储、数据库等一系列云服务。客户可以灵活地构建、部署和扩展各种应用程序"
+              desc={intl.formatMessage({
+                id: 'pages.welcome.infoCard03.desc',
+              })}
             />
           </div>
         </div>

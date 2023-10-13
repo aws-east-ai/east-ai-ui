@@ -54,8 +54,8 @@ const AboutPage: React.FC = () => {
         >
           <ul>
             <li>
-              <a href="https://github.com/aws-east-ai/east-ai-deploy">
-                https://github.com/aws-east-ai/east-ai-deploy
+              <a href="https://github.com/aws-east-ai">
+                https://github.com/aws-east-ai
               </a>
             </li>
           </ul>

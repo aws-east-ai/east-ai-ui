@@ -1,8 +1,8 @@
 export default {
   //*****新增内容******* */
-  'menu.llm.marketing-text': '营销文案',
-  'menu.sd.product-design': '创意设计',
-  'menu.sd.inpaint': '背景变焕',
+  'menu.llm.marketing-text': 'Marketing',
+  'menu.sd.product-design': 'Product design',
+  'menu.sd.inpaint': 'Inpaiting',
   'menu.about': 'About',
   //************ */
   'menu.welcome': 'Welcome',
