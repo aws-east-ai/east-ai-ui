@@ -1,6 +1,6 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { useModel, useIntl } from '@umijs/max';
-import { Card, theme, } from 'antd';
+import { useIntl, useModel } from '@umijs/max';
+import { Card, theme } from 'antd';
 import React from 'react';
 
 /**
@@ -14,7 +14,6 @@ const InfoCard: React.FC<{
   desc: string;
   href: string;
 }> = ({ title, href, index, desc }) => {
-
   const intl = useIntl();
   const { useToken } = theme;
   const { token } = useToken();
@@ -50,7 +49,7 @@ const InfoCard: React.FC<{
             padding: '8px 16px 16px 12px',
             color: '#FFF',
             fontWeight: 'bold',
-            backgroundImage: "url('rectangle.svg')",
+            backgroundImage: "url('rectangle.png')",
           }}
         >
           {index}
@@ -89,7 +88,6 @@ const InfoCard: React.FC<{
 };
 
 const Welcome: React.FC = () => {
-
   const intl = useIntl();
   const { token } = theme.useToken();
   const { initialState } = useModel('@@initialState');
@@ -134,13 +132,15 @@ const Welcome: React.FC = () => {
               width: '65%',
             }}
           >
-            <ul style={{ paddingLeft: 10 }} dangerouslySetInnerHTML={{
-              __html: intl.formatMessage({
-                id: 'pages.welcome.brief',
-                defaultMessage: '',
-              })
-            }} >
-            </ul>
+            <ul
+              style={{ paddingLeft: 10 }}
+              dangerouslySetInnerHTML={{
+                __html: intl.formatMessage({
+                  id: 'pages.welcome.brief',
+                  defaultMessage: '',
+                }),
+              }}
+            ></ul>
           </p>
           <div
             style={{

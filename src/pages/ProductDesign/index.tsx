@@ -1,6 +1,7 @@
 import { productDesign } from '@/services/east-ai/api';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
+import { useIntl } from '@umijs/max';
 import {
   Button,
   Col,
@@ -17,16 +18,14 @@ import {
 import type { RcFile, UploadChangeParam, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
 import React, { useState } from 'react';
-import { useIntl } from '@umijs/max';
 
 const MarketingText: React.FC = () => {
-
   const intl = useIntl();
   const { token } = theme.useToken();
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(false);
   const [input_image, setInput_image] = useState();
-  const [model_id, setModel_id] = useState("product_design");
+  const [model_id, setModel_id] = useState('product_design');
 
   type FieldType = {
     model_id?: string;
@@ -45,7 +44,7 @@ const MarketingText: React.FC = () => {
   const onFinish = async (values: any) => {
     // console.log(values)
     setLoading(true);
-    values.prompt = `3D product render, ${values.prompt}, finely detailed, purism, ue 5, a computer rendering, minimalism, octane render, 4k`
+    values.prompt = `3D product render, ${values.prompt}, finely detailed, purism, ue 5, a computer rendering, minimalism, octane render, 4k`;
     if (input_image && input_image.length > 1) {
       values.input_image = input_image;
     }
@@ -70,27 +69,26 @@ const MarketingText: React.FC = () => {
   // }
   const samplers = ['euler_a', 'eular', 'heun', 'lms', 'dpm2', 'dpm2_a', 'ddim'];
   const style_presets = [
-    "enhance",
-    "anime",
-    "photographic",
-    "digital-art",
-    "comic-book",
-    "fantasy-art",
-    "analog-film",
-    "neon-punk",
-    "isometric",
-    "low-poly",
-    "origami",
-    "line-art",
-    "craft-clay",
-    "cinematic",
-    "3d-model",
-    "pixel-art",
+    'enhance',
+    'anime',
+    'photographic',
+    'digital-art',
+    'comic-book',
+    'fantasy-art',
+    'analog-film',
+    'neon-punk',
+    'isometric',
+    'low-poly',
+    'origami',
+    'line-art',
+    'craft-clay',
+    'cinematic',
+    '3d-model',
+    'pixel-art',
   ];
 
   const defaultValues = {
-    prompt:
-      'futuristic armchair',
+    prompt: 'futuristic armchair',
     negative_prompt:
       'EasyNegative, (worst quality:2), (low quality:2), (normal quality:2), lowres, ((monochrome)), ((grayscale)), cropped, text, jpeg artifacts, signature, watermark, username, sketch, cartoon, drawing, anime, duplicate, blurry, semi-realistic, out of frame, ugly, deformed',
     steps: 30,
@@ -100,7 +98,7 @@ const MarketingText: React.FC = () => {
     width: 512,
     count: 1,
     model_id: 'product_design',
-    style_preset: '3d-model'
+    style_preset: '3d-model',
   };
 
   const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
@@ -135,11 +133,17 @@ const MarketingText: React.FC = () => {
   const handleModelChange = (value: string) => {
     // alert(value);
     setModel_id(value);
-  }
+  };
 
   const uploadButton = (
     <div>
-      {loading ? <LoadingOutlined /> : <Button icon={<PlusOutlined />} >上传</Button>}
+      {loading ? (
+        <LoadingOutlined />
+      ) : (
+        <Button icon={<PlusOutlined />}>
+          {intl.formatMessage({ id: 'pages.common.buttonUpload' })}
+        </Button>
+      )}
     </div>
   );
   return (
@@ -163,25 +167,29 @@ const MarketingText: React.FC = () => {
               layout="vertical"
               initialValues={defaultValues}
             >
-              <Form.Item<FieldType> label={intl.formatMessage({
-                id: 'pages.productDesign.modelId.title'
-              })} name="model_id">
+              <Form.Item<FieldType>
+                label={intl.formatMessage({
+                  id: 'pages.productDesign.modelId.title',
+                })}
+                name="model_id"
+              >
                 <Select onChange={handleModelChange}>
-                  <Select.Option value="product_design">{
-                    intl.formatMessage({ id: 'pages.productDesign.model.realityStyle' })
-                  }</Select.Option>
-                  <Select.Option value="bedrock_sdxl">{
-                    intl.formatMessage({ id: 'pages.productDesign.model.bedrockSDXL' })
-                  }
+                  <Select.Option value="product_design">
+                    {intl.formatMessage({ id: 'pages.productDesign.model.realityStyle' })}
+                  </Select.Option>
+                  <Select.Option value="bedrock_sdxl">
+                    {intl.formatMessage({ id: 'pages.productDesign.model.bedrockSDXL' })}
                   </Select.Option>
                 </Select>
               </Form.Item>
-              {
-                model_id == "product_design" ? <Form.Item<FieldType> label={intl.formatMessage({
-                  id: 'pages.productDesign.inputImage.title'
-                })}
+              {model_id === 'product_design' ? (
+                <Form.Item<FieldType>
+                  label={intl.formatMessage({
+                    id: 'pages.productDesign.inputImage.title',
+                  })}
                   name="input_image"
-                  valuePropName="fieldList">
+                  valuePropName="fieldList"
+                >
                   <Upload
                     name="file"
                     action="/api/upload"
@@ -193,7 +201,7 @@ const MarketingText: React.FC = () => {
                   >
                     {input_image ? (
                       <img
-                        src={"/api/s3-image/" + input_image}
+                        src={'/api/s3-image/' + input_image}
                         alt="product image"
                         style={{ maxHeight: 320, maxWidth: 320 }}
                       />
@@ -201,89 +209,79 @@ const MarketingText: React.FC = () => {
                       uploadButton
                     )}
                   </Upload>
-                </Form.Item> : null
-              }
-              <Form.Item<FieldType> label={intl.formatMessage({
-                id: 'pages.productDesign.prompt.title'
-              })}
+                </Form.Item>
+              ) : null}
+              <Form.Item<FieldType>
+                label={intl.formatMessage({
+                  id: 'pages.productDesign.prompt.title',
+                })}
                 name="prompt"
                 rules={[{ required: true }]}
               >
-                <Input.TextArea
-                  showCount
-                  maxLength={500}
-                  allowClear
-                  style={{ height: 120 }}
-                />
+                <Input.TextArea showCount maxLength={500} allowClear style={{ height: 120 }} />
               </Form.Item>
 
               <Form.Item<FieldType>
                 label={intl.formatMessage({
-                  id: 'pages.productDesign.nprompt.title'
+                  id: 'pages.productDesign.nprompt.title',
                 })}
                 name="negative_prompt"
                 rules={[{ required: true }]}
               >
-                <Input.TextArea
-                  showCount
-                  maxLength={500}
-                  allowClear
-                  style={{ height: 120 }}
-                />
+                <Input.TextArea showCount maxLength={500} allowClear style={{ height: 120 }} />
               </Form.Item>
 
               <Row>
                 <Col span={8}>
                   <Form.Item<FieldType>
                     label={intl.formatMessage({
-                      id: 'pages.productDesign.width.title'
+                      id: 'pages.productDesign.width.title',
                     })}
                     name="width"
-                    rules={[{ required: true, }]}
+                    rules={[{ required: true }]}
                   >
-                    <InputNumber min={128} max={model_id == "product_design" ? 1024 : 768} />
+                    <InputNumber min={128} max={model_id === 'product_design' ? 1024 : 768} />
                   </Form.Item>
                 </Col>
                 <Col span={8}>
                   <Form.Item<FieldType>
                     label={intl.formatMessage({
-                      id: 'pages.productDesign.height.title'
+                      id: 'pages.productDesign.height.title',
                     })}
                     name="height"
                     rules={[{ required: true }]}
                   >
-                    <InputNumber min={128} max={model_id == "product_design" ? 1024 : 768} />
+                    <InputNumber min={128} max={model_id === 'product_design' ? 1024 : 768} />
                   </Form.Item>
                 </Col>
                 <Col span={8}>
-                  {
-                    model_id == "product_design" ?
-                      <Form.Item<FieldType>
-                        label={intl.formatMessage({
-                          id: 'pages.productDesign.count.title'
-                        })}
-                        name="count"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber min={1} max={4} />
-                      </Form.Item> : null
-                  }
-                  {
-                    model_id == "bedrock_sdxl" ?
-                      <Form.Item<FieldType>
-                        label={intl.formatMessage({
-                          id: 'pages.productDesign.stylePreset.title'
-                        })}
-                        name="style_preset">
-                        <Select>
-                          {style_presets.map((s) => (
-                            <Select.Option key={s} value={s}>
-                              {s}
-                            </Select.Option>
-                          ))}
-                        </Select>
-                      </Form.Item> : null
-                  }
+                  {model_id === 'product_design' ? (
+                    <Form.Item<FieldType>
+                      label={intl.formatMessage({
+                        id: 'pages.productDesign.count.title',
+                      })}
+                      name="count"
+                      rules={[{ required: true }]}
+                    >
+                      <InputNumber min={1} max={4} />
+                    </Form.Item>
+                  ) : null}
+                  {model_id === 'bedrock_sdxl' ? (
+                    <Form.Item<FieldType>
+                      label={intl.formatMessage({
+                        id: 'pages.productDesign.stylePreset.title',
+                      })}
+                      name="style_preset"
+                    >
+                      <Select>
+                        {style_presets.map((s) => (
+                          <Select.Option key={s} value={s}>
+                            {s}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  ) : null}
                 </Col>
               </Row>
               <Row style={{ display: 'none' }}>
@@ -322,7 +320,7 @@ const MarketingText: React.FC = () => {
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                 <Button type="primary" htmlType="submit" disabled={loading}>
                   {intl.formatMessage({
-                    id: 'pages.common.buttonBeginGen'
+                    id: 'pages.common.buttonBeginGen',
                   })}
                 </Button>
               </Form.Item>

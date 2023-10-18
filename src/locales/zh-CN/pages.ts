@@ -33,7 +33,7 @@ export default {
 
   //productDesign
   'pages.productDesign.modelId.title': `选择模型`,
-  'pages.productDesign.inputImage.title': `参考图片（可选）`,
+  'pages.productDesign.inputImage.title': `上传草图（可选）`,
   'pages.productDesign.prompt.title': `生成内容提示词  `,
   'pages.productDesign.nprompt.title': `避免出现在画面中的内容`,
   'pages.productDesign.width.title': `宽(px)`,
@@ -54,5 +54,4 @@ export default {
   'pages.inpainting.nprompt.title': `不想出现在背景里的内容`,
   'pages.inpainting.nprompt.placeHolder': `不想出现在背景里的内容`,
   'pages.inpainting.count.title': `数量`,
-
 };

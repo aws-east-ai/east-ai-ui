@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   const intl = useIntl();
   const defaultMessage = intl.formatMessage({
     id: 'app.copyright.produced',
-    defaultMessage: 'AWS CS East Team',
+    defaultMessage: 'AWS China CS East Team',
   });
 
   const currentYear = new Date().getFullYear();
