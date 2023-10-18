@@ -133,6 +133,7 @@ const Welcome: React.FC = () => {
             }}
           >
             <ul
+              className='welcome-brief'
               style={{ paddingLeft: 10 }}
               dangerouslySetInnerHTML={{
                 __html: intl.formatMessage({
