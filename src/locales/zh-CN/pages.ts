@@ -30,6 +30,9 @@ export default {
   'pages.marketingText.prompt.required': `必须填写商品描述`,
   'pages.marketingText.prompt.placeholder': `请填写商品描述`,
   'pages.marketingText.result.help': `您的商品描述开始撰写文案，持续聊天可以进行修改。`,
+  'pages.marketingText.modelId.title': '大语言模型',
+  'pages.marketingText.model.chatglm2': "SageMaker (ChatGLM v2)",
+  'pages.marketingText.model.bedrockClaude2': "Bedrock (Claude2) ",
 
   //productDesign
   'pages.productDesign.modelId.title': `选择模型`,

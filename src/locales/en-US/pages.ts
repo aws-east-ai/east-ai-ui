@@ -21,11 +21,17 @@ export default {
   'pages.welcome.infoCard03.title': `Learn about AWS`,
   'pages.welcome.infoCard03.desc': `AWS is the world’s most comprehensive and broadly adopted cloud, offering over 200 fully featured services from data centers globally. Millions of customers are using AWS to lower costs, become more agile, and innovate faster.`,
 
+  // marketingText
   'pages.marketingText.prompt.title': `Creative Description`,
   'pages.marketingText.style.title': `Text style`,
   'pages.marketingText.prompt.required': `Please enter your creative description`,
   'pages.marketingText.prompt.placeholder': `Enter your content here`,
   'pages.marketingText.result.help': `Enter your content to start your copywriting, and Constant Chat can be modified.`,
+  'pages.marketingText.modelId.title': 'LLM Model',
+  'pages.marketingText.model.chatglm2': "SageMaker (ChatGLM v2)",
+  'pages.marketingText.model.bedrockClaude2': "Amazon Bedrock (Claude2)",
+
+  // productDesign
   'pages.productDesign.modelId.title': `Creative model`,
   'pages.productDesign.model.realityStyle': `Reality Style Model`,
   'pages.productDesign.model.bedrockSDXL': `Amazon Bedrock (SDXL)`,
@@ -36,6 +42,7 @@ export default {
   'pages.productDesign.height.title': `Height`,
   'pages.productDesign.count.title': `Count`,
 
+  // inpainting
   'pages.inpainting.modelId.title': `Painting model`,
   'pages.inpainting.inputImage.title': `Product Image`,
   'pages.inpainting.samPrompt.title': `Product description (retained content)`,

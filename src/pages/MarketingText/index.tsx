@@ -1,6 +1,6 @@
 import { LoadingOutlined, RobotOutlined, UserOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { Avatar, Button, Col, Form, Input, Radio, Row, theme } from 'antd';
+import { Avatar, Button, Col, Form, Input, Radio, Row, theme, Select } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import { useIntl } from '@umijs/max';
 
@@ -16,14 +16,18 @@ const MarketingText: React.FC = () => {
   const [message, setMessage] = useState('');
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(false);
+  const [model_id, setModel_id] = useState('chatglm2');
   //  const [messageApi, contextHolder] = ant_message.useMessage();
 
   type FieldType = {
+    model_id?: string;
     prompt?: string;
     pattern?: string;
   };
   // const [isPaused, setPause] = useState(false);
   const ws = useRef(null);
+
+  // let sessionHistory = [];
 
   useEffect(() => {
     let loc = window.location,
@@ -37,10 +41,12 @@ const MarketingText: React.FC = () => {
     new_uri += '/api/chat-bot';
     // console.log("11111111", new_uri)
     // const new_uri = "ws://127.0.0.1:8000/api/chat-bot"
-    console.log(new_uri);
+    // console.log(new_uri);
     ws.current = new WebSocket(new_uri);
     ws.current.onopen = () => console.log('ws opened');
     ws.current.onclose = () => console.log('ws closed');
+
+    let curA = "", curQ = "";
 
     ws.current.onmessage = (e) => {
       const revStr = e.data;
@@ -48,17 +54,22 @@ const MarketingText: React.FC = () => {
       try {
         jObject = JSON.parse(revStr);
       } catch (e) { }
-
+      // console.log("rev: ", jObject)
       if (jObject && jObject.status === 'done') {
-        setHistory(jObject.history);
-        setMessage('');
+        history.push([curQ, curA]);
+        setHistory(history);
+        if (history.length > 0) {
+          setMessage('');
+        }
         setQuestion('');
-      } else if (jObject && jObject.status === 'begin') {
-        setQuestion(jObject.question);
-      } else {
-        // console.log(revStr, message);
-        setMessage((prev) => prev + revStr);
+        curA = "", curQ = "";
         setLoading(false);
+      } else if (jObject && jObject.status === 'begin') {
+        curQ = jObject.question;
+        setQuestion(curQ);
+      } else {
+        curA += revStr;
+        setMessage((prev) => prev + revStr);
       }
     };
 
@@ -67,12 +78,12 @@ const MarketingText: React.FC = () => {
     return () => {
       wsCurrent.close();
     };
-  }, []);
+  }, [history]);
 
   const onFinish = async (values: any) => {
     values.history = history;
     setLoading(true);
-    console.log(ws.current);
+    // console.log(ws.current);
     if (ws.current.readyState === 1) {
       ws.current.send(JSON.stringify(values));
     } else {
@@ -87,10 +98,11 @@ const MarketingText: React.FC = () => {
     setPattern(value);
     setHistory([]);
   };
-  // const submit = (values: any) => {
-  //   console.log("XXX", values);
-  //   // writeMarketingText(pattern);
-  // }
+  const handleModelChange = (value: string) => {
+    setModel_id(value);
+    setHistory([]);
+  };
+
   const patterns = [
     { label: '小红书', value: 'redbook' },
     { label: '知乎', value: 'zhihu' },
@@ -101,6 +113,7 @@ const MarketingText: React.FC = () => {
     { label: '值得买', value: 'zhidemai' },
     { label: '抖音', value: 'douyin' },
     { label: '快手', value: 'kuaishou' },
+    { label: 'Freestyle', value: 'freestyle' },
   ];
   const comego = {
     margin: 4,
@@ -116,6 +129,7 @@ const MarketingText: React.FC = () => {
   const defaultValues = {
     prompt: '汽车',
     pattern: 'redbook',
+    model_id: 'chatglm2',
   };
 
   return (
@@ -139,6 +153,21 @@ const MarketingText: React.FC = () => {
               layout="vertical"
               initialValues={defaultValues}
             >
+              <Form.Item<FieldType>
+                label={intl.formatMessage({
+                  id: 'pages.marketingText.modelId.title',
+                })}
+                name="model_id"
+              >
+                <Select onChange={handleModelChange}>
+                  <Select.Option value="chatglm2">
+                    {intl.formatMessage({ id: 'pages.marketingText.model.chatglm2' })}
+                  </Select.Option>
+                  <Select.Option value="bedrock_claude2">
+                    {intl.formatMessage({ id: 'pages.marketingText.model.bedrockClaude2' })}
+                  </Select.Option>
+                </Select>
+              </Form.Item>
               <Form.Item<FieldType>
                 label={intl.formatMessage({
                   id: 'pages.marketingText.prompt.title',
@@ -171,6 +200,7 @@ const MarketingText: React.FC = () => {
                   value={pattern}
                   optionType="button"
                   buttonStyle="solid"
+                  disabled={loading}
                 />
               </Form.Item>
 
@@ -196,7 +226,7 @@ const MarketingText: React.FC = () => {
                 {history.length === 0 && !question && (
                   <div>{intl.formatMessage({ id: 'pages.marketingText.result.help' })} </div>
                 )}
-                {history.map((item) => (
+                {history.length > 0 && history.map((item) => (
                   <div
                     style={{
                       marginBottom: 10,
