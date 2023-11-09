@@ -104,15 +104,76 @@ const MarketingText: React.FC = () => {
   };
 
   const patterns = [
-    { label: '小红书', value: 'redbook' },
-    { label: '知乎', value: 'zhihu' },
-    { label: '微博', value: 'weibo' },
-    { label: '公众号', value: 'gongzhonghao' },
-    { label: '点评', value: 'dianping' },
-    { label: '头条', value: 'toutiao' },
-    { label: '值得买', value: 'zhidemai' },
-    { label: '抖音', value: 'douyin' },
-    { label: '快手', value: 'kuaishou' },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.redbook',
+      }), value: 'redbook'
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.zhihu',
+      }), value: 'zhihu'
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.weibo',
+      }), value: 'weibo'
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.gongzhonghao',
+      }), value: 'gongzhonghao'
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.dianping',
+      }), value: 'dianping'
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.toutiao',
+      }), value: 'toutiao'
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.zhidemai',
+      }), value: 'zhidemai'
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.douyin',
+      }), value: 'douyin'
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.kuaishou',
+      }), value: 'kuaishou'
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.twitter',
+      }), value: "twitter"
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.instagram',
+      }), value: "instagram"
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.tiktok',
+      }), value: "tiktok"
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.youtube',
+      }), value: "youtube"
+    },
+    {
+      label: intl.formatMessage({
+        id: 'pages.marketingText.patterns.medium',
+      }), value: "medium"
+    },
     { label: 'Freestyle', value: 'freestyle' },
   ];
   const comego = {
@@ -127,7 +188,9 @@ const MarketingText: React.FC = () => {
   };
 
   const defaultValues = {
-    prompt: '汽车',
+    prompt: intl.formatMessage({
+      id: 'pages.marketingText.prompt.defaultValue',
+    }),
     pattern: 'redbook',
     model_id: 'chatglm2',
   };
