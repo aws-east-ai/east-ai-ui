@@ -139,7 +139,9 @@ const Inpaint: React.FC = () => {
                   <Select.Option value="product_design">{
                     intl.formatMessage({ id: 'pages.inpainting.model.realityStyle' })
                   }</Select.Option>
-                  <Select.Option value="product_inpaint">备用模型</Select.Option>
+                  <Select.Option value="product_inpaint">{
+                    intl.formatMessage({ id: 'pages.inpainting.model.optionStyle' })
+                  }</Select.Option>
                 </Select>
               </Form.Item>
 

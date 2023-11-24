@@ -64,6 +64,7 @@ export default {
   //Inpainting
   'pages.inpainting.modelId.title': `选择模型`,
   'pages.inpainting.model.realityStyle': '抠图渲染模型',
+  'pages.inpainting.model.optionStyle': '备用模型',
   'pages.inpainting.inputImage.title': `产品图片`,
   'pages.inpainting.samPrompt.title': `产品描述(保留内容)`,
   'pages.inpainting.samPrompt.placeHolder': `产品描述(保留内容)`,

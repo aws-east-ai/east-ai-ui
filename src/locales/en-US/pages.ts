@@ -59,6 +59,8 @@ export default {
 
   // inpainting
   'pages.inpainting.modelId.title': `Painting model`,
+  'pages.inpainting.model.realityStyle': 'Segment & Render',
+  'pages.inpainting.model.optionStyle': 'Reserved model',
   'pages.inpainting.inputImage.title': `Product Image`,
   'pages.inpainting.samPrompt.title': `Product description (retained content)`,
   'pages.inpainting.prompt.title': `Describe your idea`,
