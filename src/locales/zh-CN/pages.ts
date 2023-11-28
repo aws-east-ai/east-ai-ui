@@ -73,4 +73,7 @@ export default {
   'pages.inpainting.nprompt.title': `不想出现在背景里的内容`,
   'pages.inpainting.nprompt.placeHolder': `不想出现在背景里的内容`,
   'pages.inpainting.count.title': `数量`,
+  // Agent
+  'pages.Agent.input.placeholder': `请输入您的问题，如：请根据以下提示词生成图片：现代风帐篷，或者 请将以下图片（https://awsiot.top/image.png）中人的背景替换为雪山`,
+  'pages.Agent.prompt.required': `请输入您的提示词`,
 };

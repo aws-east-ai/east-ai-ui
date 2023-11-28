@@ -36,8 +36,7 @@ export async function productDesign(data: API.ProductDesignRequest, options?: { 
 
 
 export async function inpaint(data: API.InpaintRequest, options?: { [key: string]: any }) {
-  // console.log({ ...(options || {}) })
-  // console.log(data);
+
   return request<{
     data: API.InpaintResponse;
   }>('/api/inpaint', {
@@ -46,3 +45,14 @@ export async function inpaint(data: API.InpaintRequest, options?: { [key: string
     ...(options || {}),
   });
 }
+
+export async function agentTask(data: API.AgentPromptRequest, options?: { [key: string]: any }) {
+  return request<{
+    data: any;
+  }>('/api/agent', {
+    method: 'POST',
+    data,
+    ...(options || {}),
+  });
+}
+

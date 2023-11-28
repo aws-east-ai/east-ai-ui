@@ -36,6 +36,12 @@ export default [
     component: './Inpaint',
   },
   {
+    path: '/agent',
+    name: 'llm.agent',
+    icon: 'FileImageOutlined',
+    component: './Agent',
+  },
+  {
     path: '/about',
     name: 'about',
     icon: 'QuestionOutlined',

@@ -38,6 +38,10 @@ declare namespace API {
   }
   type InpaintResponse = {
     images?: string[];
-
   }
+
+  type AgentPromptRequest = {
+    prompt?: string;
+  }
+
 }

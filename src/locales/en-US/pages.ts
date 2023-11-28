@@ -66,4 +66,7 @@ export default {
   'pages.inpainting.prompt.title': `Describe your idea`,
   'pages.inpainting.nprompt.title': `Avoid in the picture`,
   'pages.inpainting.count.title': `Count`,
+  // Agent
+  'pages.Agent.input.placeholder': `Please enter your question, e.g. Please generate an image based on the following prompts: Modern tent, or Please replace the background of the person in the following image (https://awsiot.top/image.png) with a snow-capped mountain`,
+  'pages.Agent.prompt.required': `Prompt required.`,
 };

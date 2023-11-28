@@ -6,6 +6,7 @@ export default {
   'menu.llm.customer-bot': '智能客服',
   'menu.sd.product-design': '创意设计',
   'menu.sd.inpaint': '背景变焕',
+  'menu.llm.agent': 'Agent',
   'menu.about': '关于',
   //************ */
   'menu.more-blocks': '更多区块',
