@@ -240,7 +240,7 @@ const MarketingText: React.FC = () => {
                     name="width"
                     rules={[{ required: true }]}
                   >
-                    <InputNumber min={128} max={model_id === 'product_design' ? 1024 : 768} />
+                    <InputNumber min={128} max={model_id === 'product_design' ? 1024 : 1024} />
                   </Form.Item>
                 </Col>
                 <Col span={8}>
@@ -251,7 +251,7 @@ const MarketingText: React.FC = () => {
                     name="height"
                     rules={[{ required: true }]}
                   >
-                    <InputNumber min={128} max={model_id === 'product_design' ? 1024 : 768} />
+                    <InputNumber min={128} max={model_id === 'product_design' ? 1024 : 1024} />
                   </Form.Item>
                 </Col>
                 <Col span={8}>
