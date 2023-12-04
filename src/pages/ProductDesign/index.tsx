@@ -26,6 +26,8 @@ const MarketingText: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [input_image, setInput_image] = useState();
   const [model_id, setModel_id] = useState('product_design');
+  const [width, setWidth] = useState(512);
+  const [height, setHeight] = useState(512);
 
   type FieldType = {
     model_id?: string;
@@ -47,6 +49,12 @@ const MarketingText: React.FC = () => {
     values.prompt = `3D product render, ${values.prompt}, finely detailed, purism, ue 5, a computer rendering, minimalism, octane render, 4k`;
     if (input_image && input_image.length > 1) {
       values.input_image = input_image;
+    }
+    if (!values.width) {
+      values.width = width;
+    }
+    if (!values.height) {
+      values.height = height;
     }
     const res: API.ProductDesignResponse = await productDesign(values);
     // console.log(res);
@@ -86,6 +94,20 @@ const MarketingText: React.FC = () => {
     '3d-model',
     'pixel-art',
   ];
+
+  const titan_w_h_s = {
+    "512 x 512": [512, 512],
+    "768 x 768": [768, 768],
+    "1024 x 1024": [1024, 1024],
+    "576 x 384": [576, 384],
+    "640 x 384": [640, 384],
+    "704 x 384": [704, 384],
+    "1152 x 768": [1152, 768],
+    "1173 x 640": [1173, 640],
+    "320 x 704": [320, 704],
+    "448 x 576": [448, 576],
+    "768 x 1152": [768, 1152],
+  }
 
   const defaultValues = {
     prompt: 'futuristic armchair',
@@ -131,8 +153,12 @@ const MarketingText: React.FC = () => {
     return isImage && isLt;
   };
   const handleModelChange = (value: string) => {
-    // alert(value);
     setModel_id(value);
+  };
+  const handleTitanSizeChange = (value: string) => {
+    const w_h = titan_w_h_s[value];
+    setWidth(w_h[0]);
+    setHeight(w_h[1]);
   };
 
   const uploadButton = (
@@ -179,6 +205,9 @@ const MarketingText: React.FC = () => {
                   </Select.Option>
                   <Select.Option value="bedrock_sdxl">
                     {intl.formatMessage({ id: 'pages.productDesign.model.bedrockSDXL' })}
+                  </Select.Option>
+                  <Select.Option value="bedrock_titan">
+                    {intl.formatMessage({ id: 'pages.productDesign.model.bedrockTitan' })}
                   </Select.Option>
                 </Select>
               </Form.Item>
@@ -232,30 +261,50 @@ const MarketingText: React.FC = () => {
               </Form.Item>
 
               <Row>
+                {
+                  model_id === 'bedrock_titan' ? (
+                    <Col span={16}>
+                      <Form.Item<FieldType>
+                        label={intl.formatMessage({
+                          id: 'pages.productDesign.size.title',
+                        })}
+                      >
+                        <Select onChange={handleTitanSizeChange}>
+                          {
+                            Object.keys(titan_w_h_s).map((key) =>
+                              <Select.Option value={key} key={key}>
+                              </Select.Option>)
+                          }
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                  ) : <>
+                    <Col span={8}>
+                      <Form.Item<FieldType>
+                        label={intl.formatMessage({
+                          id: 'pages.productDesign.width.title',
+                        })}
+                        name="width"
+                        rules={[{ required: true }]}
+                      >
+                        <InputNumber min={128} max={model_id === 'product_design' ? 1024 : 1024} />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item<FieldType>
+                        label={intl.formatMessage({
+                          id: 'pages.productDesign.height.title',
+                        })}
+                        name="height"
+                        rules={[{ required: true }]}
+                      >
+                        <InputNumber min={128} max={model_id === 'product_design' ? 1024 : 1024} />
+                      </Form.Item>
+                    </Col>
+                  </>
+                }
                 <Col span={8}>
-                  <Form.Item<FieldType>
-                    label={intl.formatMessage({
-                      id: 'pages.productDesign.width.title',
-                    })}
-                    name="width"
-                    rules={[{ required: true }]}
-                  >
-                    <InputNumber min={128} max={model_id === 'product_design' ? 1024 : 1024} />
-                  </Form.Item>
-                </Col>
-                <Col span={8}>
-                  <Form.Item<FieldType>
-                    label={intl.formatMessage({
-                      id: 'pages.productDesign.height.title',
-                    })}
-                    name="height"
-                    rules={[{ required: true }]}
-                  >
-                    <InputNumber min={128} max={model_id === 'product_design' ? 1024 : 1024} />
-                  </Form.Item>
-                </Col>
-                <Col span={8}>
-                  {model_id === 'product_design' ? (
+                  {model_id === 'product_design' || model_id === 'bedrock_titan' ? (
                     <Form.Item<FieldType>
                       label={intl.formatMessage({
                         id: 'pages.productDesign.count.title',

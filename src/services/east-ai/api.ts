@@ -16,10 +16,10 @@ export async function writeMarketingText(data: API.MarketingTextRequest, options
 export async function productDesign(data: API.ProductDesignRequest, options?: { [key: string]: any }) {
   // console.log({ ...(options || {}) })
   // console.log(data);
-  if (data.model_id == "bedrock_sdxl") {
+  if (data.model_id == "product_design") {
     return request<{
       data: API.ProductDesignRequest;
-    }>('/api/bedrock-product-design', {
+    }>('/api/product-design', {
       method: 'POST',
       data,
       ...(options || {}),
@@ -27,7 +27,7 @@ export async function productDesign(data: API.ProductDesignRequest, options?: { 
   }
   return request<{
     data: API.ProductDesignRequest;
-  }>('/api/product-design', {
+  }>('/api/bedrock-product-design', {
     method: 'POST',
     data,
     ...(options || {}),

@@ -38,7 +38,7 @@ export default [
   {
     path: '/agent',
     name: 'llm.agent',
-    icon: 'FileImageOutlined',
+    icon: 'BulbOutlined',
     component: './Agent',
   },
   {

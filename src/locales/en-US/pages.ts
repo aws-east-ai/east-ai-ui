@@ -48,13 +48,15 @@ export default {
 
   // productDesign
   'pages.productDesign.modelId.title': `Creative model`,
-  'pages.productDesign.model.realityStyle': `Reality Style Model`,
-  'pages.productDesign.model.bedrockSDXL': `Amazon Bedrock (SDXL)`,
+  'pages.productDesign.model.realityStyle': `SageMaker - Reality Style Model`,
+  'pages.productDesign.model.bedrockSDXL': `Bedrock - SDXL`,
+  'pages.productDesign.model.bedrockTitan': 'Bedrock - Amazon Titan',
   'pages.productDesign.inputImage.title': `Upload your sketch`,
   'pages.productDesign.prompt.title': `Describe your idea`,
   'pages.productDesign.nprompt.title': `Avoid in the picture`,
   'pages.productDesign.width.title': `Width`,
   'pages.productDesign.height.title': `Height`,
+  'pages.productDesign.size.title': `Size`,
   'pages.productDesign.count.title': `Count`,
 
   // inpainting
@@ -67,6 +69,6 @@ export default {
   'pages.inpainting.nprompt.title': `Avoid in the picture`,
   'pages.inpainting.count.title': `Count`,
   // Agent
-  'pages.Agent.input.placeholder': `Please enter your question, e.g. Please generate an image based on the following prompts: Modern tent, or Please replace the background of the person in the following image (https://awsiot.top/image.png) with a snow-capped mountain`,
+  'pages.Agent.input.placeholder': `Please enter your question, e.g. Please generate an image based on the following prompts: Modern tent, or Please replace the background of the person in the following image (s3://sample/sample.png) with a snow-capped mountain`,
   'pages.Agent.prompt.required': `Prompt required.`,
 };

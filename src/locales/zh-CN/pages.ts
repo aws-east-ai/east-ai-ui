@@ -57,9 +57,12 @@ export default {
   'pages.productDesign.width.title': `宽(px)`,
   'pages.productDesign.height.title': `高(px)`,
   'pages.productDesign.count.title': `数量`,
+  'pages.productDesign.size.title': `尺寸`,
+
   'pages.productDesign.stylePreset.title': `样式`,
-  'pages.productDesign.model.realityStyle': '真实风格设计模型',
-  'pages.productDesign.model.bedrockSDXL': 'Stable Diffusion XL(来自bedrock)',
+  'pages.productDesign.model.realityStyle': 'SageMaker - 真实风格设计模型',
+  'pages.productDesign.model.bedrockSDXL': `Bedrock - SDXL`,
+  'pages.productDesign.model.bedrockTitan': 'Bedrock - Amazon Titan',
 
   //Inpainting
   'pages.inpainting.modelId.title': `选择模型`,
@@ -74,7 +77,7 @@ export default {
   'pages.inpainting.nprompt.placeHolder': `不想出现在背景里的内容`,
   'pages.inpainting.count.title': `数量`,
   // Agent
-  'pages.Agent.input.placeholder': `请输入您的问题，如：请根据以下提示词生成图片：现代风帐篷，或者 请将以下图片（https://awsiot.top/image.png）中人的背景替换为雪山`,
+  'pages.Agent.input.placeholder': `请输入您的问题，如：请根据以下提示词生成图片：现代风帐篷，或者 （s3://sample/sample.png）中人的背景替换为雪山`,
   'pages.Agent.prompt.required': `请输入您的提示词`,
-  'pages.agent.result.help': `请输入任务提示词。如："请根据以下提示词生成图片：现代风帐篷" 或者 "请将以下图片（https://awsiot.top/image.png）中人的背景替换为雪山"。`
+  'pages.agent.result.help': `请输入任务提示词。如："请根据以下提示词生成图片：现代风帐篷" 或者 "请将以下图片（s3://sample/sample.png）中人的背景替换为雪山"。`
 };
