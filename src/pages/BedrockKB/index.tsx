@@ -1,7 +1,7 @@
 import { LoadingOutlined, RobotOutlined, UserOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { Avatar, Button, Col, Form, Input, Radio, Row, theme, Select } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useIntl } from '@umijs/max';
 
 // const { Title } = Typography;
@@ -18,68 +18,38 @@ const MarketingText: React.FC = () => {
   //  const [messageApi, contextHolder] = ant_message.useMessage();
 
   type FieldType = {
-    model_id?: string;
     prompt?: string;
   };
-  // const [isPaused, setPause] = useState(false);
-  const ws = useRef(null);
-
-  // let sessionHistory = [];
-
-  useEffect(() => {
-    let loc = window.location,
-      new_uri;
-    if (loc.protocol === 'https:') {
-      new_uri = 'wss:';
-    } else {
-      new_uri = 'ws:';
-    }
-    new_uri += '//' + loc.host;
-    new_uri += '/api/chat-bot';
-    // console.log("11111111", new_uri)
-    // const new_uri = "ws://127.0.0.1:8000/api/chat-bot"
-    // console.log(new_uri);
-    ws.current = new WebSocket(new_uri);
-    ws.current.onopen = () => console.log('ws opened');
-    ws.current.onclose = () => console.log('ws closed');
-
-    let curA = "", curQ = "";
-
-    ws.current.onmessage = (e) => {
-      const revStr = e.data;
-      let jObject;
-      try {
-        jObject = JSON.parse(revStr);
-      } catch (e) { }
-      // console.log("rev: ", jObject)
-      if (jObject && jObject.status === 'done') {
-        history.push([curQ, curA]);
-        setHistory(history);
-        if (history.length > 0) {
-          setMessage('');
-        }
-        setQuestion('');
-        curA = "", curQ = "";
-        setLoading(false);
-      } else if (jObject && jObject.status === 'begin') {
-        curQ = jObject.question;
-        setQuestion(curQ);
-      } else {
-        curA += revStr;
-        setMessage((prev) => prev + revStr);
-      }
-    };
-
-    const wsCurrent = ws.current;
-
-    return () => {
-      wsCurrent.close();
-    };
-  }, [history]);
 
   const onFinish = async (values: any) => {
-    values.history = history;
+    // values.history = history;
     setLoading(true);
+    let curA = "";
+    setQuestion(values.prompt);
+    const decoder = new TextDecoder();
+    var url = "/api/bedrock-rag";
+    // console.log("values", JSON.stringify(values));
+    const response = await fetch(url, {
+      method: "POST",
+      headers: new Headers({ 'content-type': 'application/json' }),
+      body: JSON.stringify(values)
+    });
+    const reader = response.body.getReader();
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      let strValue = decoder.decode(value);
+      strValue = strValue.replace(/\n/g, "<br />");
+      curA += strValue;
+      // console.log("N", strValue);
+      setMessage((prev) => prev + strValue);
+    }
+    setLoading(false);
+    history.push([values.prompt, curA])
+    console.log(history)
+    setQuestion("");
+    setMessage("");
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -138,9 +108,6 @@ const MarketingText: React.FC = () => {
                 <Input.TextArea
                   showCount
                   maxLength={500}
-                  placeholder={intl.formatMessage({
-                    id: 'pages.bedrockKB.prompt.placeholder',
-                  })}
                   allowClear
                   style={{ height: 180 }}
                 />
@@ -206,9 +173,7 @@ const MarketingText: React.FC = () => {
                           marginBottom: "30px"
                         }}
                       >
-                        <pre style={{ wordWrap: "break-word", whiteSpace: "pre-wrap" }}>
-                          {item[1]}
-                        </pre>
+                        <span dangerouslySetInnerHTML={{ __html: item[1] }}></span>
                       </Col>
                     </Row>
                   </div>
@@ -251,9 +216,7 @@ const MarketingText: React.FC = () => {
                         marginBottom: "30px"
                       }}
                     >
-                      <pre style={{ wordWrap: "break-word", whiteSpace: "pre-wrap" }}>
-                        {message}
-                      </pre>
+                      <span dangerouslySetInnerHTML={{ __html: message }}></span>
                     </Col>
                   </Row>
                 )}

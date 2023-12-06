@@ -6,7 +6,7 @@ export default {
   'menu.llm.customer-bot': '智能客服',
   'menu.sd.product-design': '创意设计',
   'menu.sd.inpaint': '背景变焕',
-  'menu.llm.agent': 'Agent',
+  'menu.llm.agent': '智能代理',
   'menu.bedrock.knowledgebase': '知识库',
   'menu.about': '关于',
   //************ */
