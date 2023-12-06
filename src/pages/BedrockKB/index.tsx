@@ -40,14 +40,16 @@ const MarketingText: React.FC = () => {
       const { value, done } = await reader.read();
       if (done) break;
       let strValue = decoder.decode(value);
+      console.log(strValue);
       strValue = strValue.replace(/\n/g, "<br />");
       curA += strValue;
       // console.log("N", strValue);
       setMessage((prev) => prev + strValue);
     }
     setLoading(false);
+    curA = curA.trim().replace(/^(<br\s*\/?>)*|(<br\s*\/?>)*$/ig, "");
     history.push([values.prompt, curA])
-    console.log(history)
+    // console.log(history)
     setQuestion("");
     setMessage("");
   };
