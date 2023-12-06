@@ -79,5 +79,9 @@ export default {
   // Agent
   'pages.Agent.input.placeholder': `请输入您的问题，如：请根据以下提示词生成图片：现代风帐篷，或者 （s3://sample/sample.png）中人的背景替换为雪山`,
   'pages.Agent.prompt.required': `请输入您的提示词`,
-  'pages.agent.result.help': `请输入任务提示词。如："请根据以下提示词生成图片：现代风帐篷" 或者 "请将以下图片（s3://sample/sample.png）中人的背景替换为雪山"。`
+  'pages.agent.result.help': `请输入任务提示词。如："请根据以下提示词生成图片：现代风帐篷" 或者 "请将以下图片（s3://sample/sample.png）中人的背景替换为雪山"。`,
+  //KB
+  'pages.bedrockKB.prompt.title': `请输入您的问题`,
+  'pages.bedrockKB.prompt.defaultValue': `如何保护S3数据？`,
+  'pages.bedrockKB.result.help': `请输入内部知识库相关问题。如："如何保护S3数据？"。`,
 };

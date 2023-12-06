@@ -71,4 +71,8 @@ export default {
   // Agent
   'pages.Agent.input.placeholder': `Please enter your question, e.g. Please generate an image based on the following prompts: Modern tent, or Please replace the background of the person in the following image (s3://sample/sample.png) with a snow-capped mountain`,
   'pages.Agent.prompt.required': `Prompt required.`,
+  //KB
+  'pages.bedrockKB.prompt.title': `请输入您的问题`,
+  'pages.bedrockKB.prompt.defaultValue': `如何保护S3数据？`,
+  'pages.bedrockKB.result.help': `请输入内部知识库相关问题。如："如何保护S3数据？"。`,
 };

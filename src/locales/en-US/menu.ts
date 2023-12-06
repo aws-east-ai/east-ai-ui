@@ -4,6 +4,7 @@ export default {
   'menu.sd.product-design': 'Creative Design',
   'menu.sd.inpaint': 'Background Painting',
   'menu.llm.agent': 'Agent',
+  'menu.bedrock.knowledgebase': 'Knowledge base',
   'menu.about': 'About',
   //************ */
   'menu.welcome': 'Welcome',

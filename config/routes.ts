@@ -42,6 +42,12 @@ export default [
     component: './Agent',
   },
   {
+    path: '/bedrock-knowledgebase',
+    name: 'bedrock.knowledgebase',
+    icon: 'BulbOutlined',
+    component: './BedrockKB',
+  },
+  {
     path: '/about',
     name: 'about',
     icon: 'QuestionOutlined',
