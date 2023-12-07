@@ -48,7 +48,7 @@ const MarketingText: React.FC = () => {
     }
     setLoading(false);
     curA = curA.trim().replace(/^(<br\s*\/?>)*|(<br\s*\/?>)*$/ig, "");
-    history.push([values.prompt, curA])
+    history.unshift([values.prompt, curA])
     // console.log(history)
     setQuestion("");
     setMessage("");
@@ -137,6 +137,50 @@ const MarketingText: React.FC = () => {
                 {history.length === 0 && !question && (
                   <div>{intl.formatMessage({ id: 'pages.bedrockKB.result.help' })} </div>
                 )}
+                {question && (
+                  <Row>
+                    <Col
+                      flex="1"
+                      style={{
+                        textAlign: 'left',
+                        paddingLeft: 100,
+                        margin: '8px 4px',
+                        fontSize: '16pt',
+                      }}
+                    >
+                      <div style={{ backgroundColor: '#666', width: 'auto', padding: '5px', borderRadius: '4px', marginBottom: "25px" }}>{question}</div>
+                    </Col>
+                    <Col flex="40px" style={{ textAlign: 'center', marginTop: "8px" }}>
+                      <Avatar size={32} icon={<UserOutlined />} />
+                    </Col>
+                  </Row>
+                )}
+
+                {loading ? (
+                  <div>
+                    <LoadingOutlined />
+                  </div>
+                ) : null}
+                {message && (
+                  <Row>
+                    <Col flex="40px" style={{ textAlign: 'center', marginTop: "4px" }}>
+                      <Avatar size={32} icon={<RobotOutlined />} />
+                    </Col>
+                    <Col
+                      flex="auto"
+                      style={{
+                        paddingRight: 100,
+                        maxWidth: '90%',
+                        fontSize: '16pt',
+                        lineHeight: '1.5',
+                        marginBottom: "30px"
+                      }}
+                    >
+                      <span dangerouslySetInnerHTML={{ __html: message }}></span>
+                    </Col>
+                  </Row>
+                )}
+
                 {history.length > 0 && history.map((item) => (
                   <div
                     style={{
@@ -180,48 +224,6 @@ const MarketingText: React.FC = () => {
                     </Row>
                   </div>
                 ))}
-                {question && (
-                  <Row>
-                    <Col
-                      flex="1"
-                      style={{
-                        textAlign: 'left',
-                        paddingLeft: 100,
-                        margin: '8px 4px',
-                        fontSize: '16pt',
-                      }}
-                    >
-                      <div style={{ backgroundColor: '#666', width: 'auto', padding: '5px', borderRadius: '4px', marginBottom: "25px" }}>{question}</div>
-                    </Col>
-                    <Col flex="40px" style={{ textAlign: 'center', marginTop: "8px" }}>
-                      <Avatar size={32} icon={<UserOutlined />} />
-                    </Col>
-                  </Row>
-                )}
-                {loading ? (
-                  <div>
-                    <LoadingOutlined />
-                  </div>
-                ) : null}
-                {message && (
-                  <Row>
-                    <Col flex="40px" style={{ textAlign: 'center', marginTop: "4px" }}>
-                      <Avatar size={32} icon={<RobotOutlined />} />
-                    </Col>
-                    <Col
-                      flex="auto"
-                      style={{
-                        paddingRight: 100,
-                        maxWidth: '90%',
-                        fontSize: '16pt',
-                        lineHeight: '1.5',
-                        marginBottom: "30px"
-                      }}
-                    >
-                      <span dangerouslySetInnerHTML={{ __html: message }}></span>
-                    </Col>
-                  </Row>
-                )}
               </div>
             </div>
           </Col>
