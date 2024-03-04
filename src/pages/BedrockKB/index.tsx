@@ -41,7 +41,7 @@ const MarketingText: React.FC = () => {
       if (done) break;
       let strValue = decoder.decode(value);
       console.log(strValue);
-      strValue = strValue.replace(/\n/g, "<br />");
+      // strValue = strValue.replace(/\n/g, "<br />");
       curA += strValue;
       // console.log("N", strValue);
       setMessage((prev) => prev + strValue);
@@ -176,7 +176,7 @@ const MarketingText: React.FC = () => {
                         marginBottom: "30px"
                       }}
                     >
-                      <span dangerouslySetInnerHTML={{ __html: message }}></span>
+                      <div dangerouslySetInnerHTML={{ __html: message }}></div>
                     </Col>
                   </Row>
                 )}
