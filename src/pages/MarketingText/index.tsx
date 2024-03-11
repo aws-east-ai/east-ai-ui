@@ -16,7 +16,7 @@ const MarketingText: React.FC = () => {
   const [message, setMessage] = useState('');
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(false);
-  const [model_id, setModel_id] = useState('chatglm2');
+  const [model_id, setModel_id] = useState('bedrock_claude3');
   //  const [messageApi, contextHolder] = ant_message.useMessage();
 
   type FieldType = {
@@ -192,7 +192,7 @@ const MarketingText: React.FC = () => {
       id: 'pages.marketingText.prompt.defaultValue',
     }),
     pattern: 'redbook',
-    model_id: 'chatglm2',
+    model_id: 'bedrock_claude3',
   };
 
   return (
@@ -223,11 +223,14 @@ const MarketingText: React.FC = () => {
                 name="model_id"
               >
                 <Select onChange={handleModelChange}>
-                  <Select.Option value="chatglm2">
-                    {intl.formatMessage({ id: 'pages.marketingText.model.chatglm2' })}
+                  <Select.Option value="bedrock_claude3">
+                    {intl.formatMessage({ id: 'pages.marketingText.model.bedrockClaude3' })}
                   </Select.Option>
                   <Select.Option value="bedrock_claude2">
                     {intl.formatMessage({ id: 'pages.marketingText.model.bedrockClaude2' })}
+                  </Select.Option>
+                  <Select.Option value="chatglm2">
+                    {intl.formatMessage({ id: 'pages.marketingText.model.chatglm2' })}
                   </Select.Option>
                 </Select>
               </Form.Item>
