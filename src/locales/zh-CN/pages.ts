@@ -32,6 +32,7 @@ export default {
   'pages.marketingText.result.help': `您的商品描述开始撰写文案，持续聊天可以进行修改。`,
   'pages.marketingText.modelId.title': '大语言模型',
   'pages.marketingText.model.chatglm2': "SageMaker: ChatGLM v2",
+  'pages.marketingText.model.chatglm3': "SageMaker-ChatGLM v3",
   'pages.marketingText.model.bedrockClaude2': "Bedrock: Claude2",
   'pages.marketingText.model.bedrockClaude3': "Bedrock: Claude3 Sonnet",
   'pages.marketingText.prompt.defaultValue': "汽车，时尚",

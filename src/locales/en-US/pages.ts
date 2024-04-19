@@ -29,6 +29,7 @@ export default {
   'pages.marketingText.result.help': `Enter your content to start your copywriting, and Constant Chat can be modified.`,
   'pages.marketingText.modelId.title': 'LLM Model',
   'pages.marketingText.model.chatglm2': "SageMaker-ChatGLM v2",
+  'pages.marketingText.model.chatglm3': "SageMaker-ChatGLM v3",
   'pages.marketingText.model.bedrockClaude2': "Bedrock-Claude2",
   'pages.marketingText.model.bedrockClaude3': "Bedrock-Claude3 Sonnet",
   'pages.marketingText.prompt.defaultValue': "Car, fashion",
