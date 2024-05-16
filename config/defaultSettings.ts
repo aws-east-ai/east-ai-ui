@@ -15,7 +15,7 @@ const Settings: ProLayoutProps & {
   pwa: true,
   splitMenus: false,
   siderMenuType: 'sub',
-  logo: '/aws-logo.png',
+  logo: '/logo-cn.png',
   iconfontUrl: '',
   token: {},
 };

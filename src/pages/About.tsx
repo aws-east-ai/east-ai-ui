@@ -39,7 +39,7 @@ const AboutPage: React.FC = () => {
             <li>Xu Xiaoliang</li>
           </ul>
         </div>
-        <div
+        {/* <div
           style={{
             fontSize: '20pt',
             fontWeight: 'bold',
@@ -59,7 +59,7 @@ const AboutPage: React.FC = () => {
               </a>
             </li>
           </ul>
-        </div>
+        </div> */}
       </Card>
     </PageContainer>
   );

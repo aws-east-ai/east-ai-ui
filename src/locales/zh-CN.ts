@@ -12,7 +12,7 @@ export default {
   'layout.user.link.help': '帮助',
   'layout.user.link.privacy': '隐私',
   'layout.user.link.terms': '条款',
-  'app.copyright.produced': 'AWS China CS East Team',
+  'app.copyright.produced': '亚马逊云科技',
   'app.copyright.corp': '亚马逊云科技',
   ...pages,
   ...globalHeader,

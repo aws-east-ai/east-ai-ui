@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   const intl = useIntl();
   const defaultMessage = intl.formatMessage({
     id: 'app.copyright.produced',
-    defaultMessage: 'AWS China CS East Team',
+    defaultMessage: '亚马逊云科技',
   });
 
   const currentYear = new Date().getFullYear();
@@ -17,23 +17,17 @@ const Footer: React.FC = () => {
         background: 'none',
       }}
       copyright={`${currentYear} ${defaultMessage}`}
-      links={[
-        {
-          key: 'AWS Global',
-          title: 'AWS Global',
-          href: 'https://aws.amazon.com/',
-          blankTarget: true,
-        },
-        {
-          key: 'Amazon-AWS-CN',
-          title: intl.formatMessage({
-            id: 'app.copyright.corp',
-            defaultMessage: 'AWS',
-          }),
-          href: 'https://www.amazonaws.cn/',
-          blankTarget: true,
-        },
-      ]}
+    // links={[
+    //   {
+    //     key: 'Amazon-AWS-CN',
+    //     title: intl.formatMessage({
+    //       id: 'app.copyright.corp',
+    //       defaultMessage: 'AWS',
+    //     }),
+    //     href: 'https://www.amazonaws.cn/',
+    //     blankTarget: true,
+    //   },
+    // ]}
     />
   );
 };
