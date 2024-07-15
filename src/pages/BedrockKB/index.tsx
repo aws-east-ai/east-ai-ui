@@ -1,8 +1,8 @@
 import { LoadingOutlined, RobotOutlined, UserOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { Avatar, Button, Col, Form, Input, Radio, Row, theme, Select } from 'antd';
-import React, { useState } from 'react';
 import { useIntl } from '@umijs/max';
+import { Avatar, Button, Col, Form, Input, Row, theme } from 'antd';
+import React, { useState } from 'react';
 
 // const { Title } = Typography;
 
@@ -11,7 +11,7 @@ const MarketingText: React.FC = () => {
   const intl = useIntl();
   //  const { initialState } = useModel('@@initialState');
   // const [response, setResponse] = useState();
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState([]); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [message, setMessage] = useState('');
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,15 +24,15 @@ const MarketingText: React.FC = () => {
   const onFinish = async (values: any) => {
     // values.history = history;
     setLoading(true);
-    let curA = "";
+    let curA = '';
     setQuestion(values.prompt);
     const decoder = new TextDecoder();
-    var url = "/api/bedrock-rag";
+    var url = '/api/bedrock-rag';
     // console.log("values", JSON.stringify(values));
     const response = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       headers: new Headers({ 'content-type': 'application/json' }),
-      body: JSON.stringify(values)
+      body: JSON.stringify(values),
     });
     const reader = response.body.getReader();
 
@@ -47,11 +47,11 @@ const MarketingText: React.FC = () => {
       setMessage((prev) => prev + strValue);
     }
     setLoading(false);
-    curA = curA.trim().replace(/^(<br\s*\/?>)*|(<br\s*\/?>)*$/ig, "");
-    history.unshift([values.prompt, curA])
+    curA = curA.trim().replace(/^(<br\s*\/?>)*|(<br\s*\/?>)*$/gi, '');
+    history.unshift([values.prompt, curA]);
     // console.log(history)
-    setQuestion("");
-    setMessage("");
+    setQuestion('');
+    setMessage('');
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -87,7 +87,7 @@ const MarketingText: React.FC = () => {
         }}
       >
         <div style={{ paddingLeft: '15px', paddingBottom: '20px' }}>
-          <h3>Powered by Amazon Bedrock Claude 3 Sonnet and Knowledge base.</h3>
+          <h3>Powered by Amazon Bedrock Knowledge base.</h3>
         </div>
         <Row>
           <Col span={8}>
@@ -104,18 +104,16 @@ const MarketingText: React.FC = () => {
                   id: 'pages.bedrockKB.prompt.title',
                 })}
                 name="prompt"
-                rules={[{
-                  required: true, message: intl.formatMessage({
-                    id: 'pages.bedrockKB.prompt.required',
-                  })
-                }]}
+                rules={[
+                  {
+                    required: true,
+                    message: intl.formatMessage({
+                      id: 'pages.bedrockKB.prompt.required',
+                    }),
+                  },
+                ]}
               >
-                <Input.TextArea
-                  showCount
-                  maxLength={500}
-                  allowClear
-                  style={{ height: 180 }}
-                />
+                <Input.TextArea showCount maxLength={500} allowClear style={{ height: 180 }} />
               </Form.Item>
 
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -151,9 +149,19 @@ const MarketingText: React.FC = () => {
                         fontSize: '16pt',
                       }}
                     >
-                      <div style={{ backgroundColor: '#666', width: 'auto', padding: '5px', borderRadius: '4px', marginBottom: "25px" }}>{question}</div>
+                      <div
+                        style={{
+                          backgroundColor: '#666',
+                          width: 'auto',
+                          padding: '5px',
+                          borderRadius: '4px',
+                          marginBottom: '25px',
+                        }}
+                      >
+                        {question}
+                      </div>
                     </Col>
-                    <Col flex="40px" style={{ textAlign: 'center', marginTop: "8px" }}>
+                    <Col flex="40px" style={{ textAlign: 'center', marginTop: '8px' }}>
                       <Avatar size={32} icon={<UserOutlined />} />
                     </Col>
                   </Row>
@@ -166,7 +174,7 @@ const MarketingText: React.FC = () => {
                 ) : null}
                 {message && (
                   <Row>
-                    <Col flex="40px" style={{ textAlign: 'center', marginTop: "4px" }}>
+                    <Col flex="40px" style={{ textAlign: 'center', marginTop: '4px' }}>
                       <Avatar size={32} icon={<RobotOutlined />} />
                     </Col>
                     <Col
@@ -176,7 +184,7 @@ const MarketingText: React.FC = () => {
                         maxWidth: '90%',
                         fontSize: '16pt',
                         lineHeight: '1.5',
-                        marginBottom: "30px"
+                        marginBottom: '30px',
                       }}
                     >
                       <div dangerouslySetInnerHTML={{ __html: message }}></div>
@@ -184,49 +192,59 @@ const MarketingText: React.FC = () => {
                   </Row>
                 )}
 
-                {history.length > 0 && history.map((item) => (
-                  <div
-                    style={{
-                      marginBottom: 10,
-                    }}
-                    key={item}
-                  >
-                    <Row justify="end">
-                      <Col
-                        flex="1"
-                        style={{
-                          textAlign: 'left',
-                          paddingLeft: 100,
-                          margin: '8px 4px',
-                          fontSize: '16pt',
-
-                        }}
-                      >
-                        <div style={{ backgroundColor: '#666', width: 'auto', padding: '5px', borderRadius: '4px', marginBottom: "25px" }}>{item[0]}</div>
-                      </Col>
-                      <Col flex="40px" style={{ textAlign: 'center', marginTop: "8px" }}>
-                        <Avatar size={32} icon={<UserOutlined />} />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col flex="40px" style={{ textAlign: 'center', marginTop: "4px" }}>
-                        <Avatar size={32} icon={<RobotOutlined />} />
-                      </Col>
-                      <Col
-                        flex="auto"
-                        style={{
-                          paddingRight: 100,
-                          maxWidth: '90%',
-                          fontSize: '16pt',
-                          lineHeight: '1.5',
-                          marginBottom: "30px"
-                        }}
-                      >
-                        <span dangerouslySetInnerHTML={{ __html: item[1] }}></span>
-                      </Col>
-                    </Row>
-                  </div>
-                ))}
+                {history.length > 0 &&
+                  history.map((item) => (
+                    <div
+                      style={{
+                        marginBottom: 10,
+                      }}
+                      key={item}
+                    >
+                      <Row justify="end">
+                        <Col
+                          flex="1"
+                          style={{
+                            textAlign: 'left',
+                            paddingLeft: 100,
+                            margin: '8px 4px',
+                            fontSize: '16pt',
+                          }}
+                        >
+                          <div
+                            style={{
+                              backgroundColor: '#666',
+                              width: 'auto',
+                              padding: '5px',
+                              borderRadius: '4px',
+                              marginBottom: '25px',
+                            }}
+                          >
+                            {item[0]}
+                          </div>
+                        </Col>
+                        <Col flex="40px" style={{ textAlign: 'center', marginTop: '8px' }}>
+                          <Avatar size={32} icon={<UserOutlined />} />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col flex="40px" style={{ textAlign: 'center', marginTop: '4px' }}>
+                          <Avatar size={32} icon={<RobotOutlined />} />
+                        </Col>
+                        <Col
+                          flex="auto"
+                          style={{
+                            paddingRight: 100,
+                            maxWidth: '90%',
+                            fontSize: '16pt',
+                            lineHeight: '1.5',
+                            marginBottom: '30px',
+                          }}
+                        >
+                          <span dangerouslySetInnerHTML={{ __html: item[1] }}></span>
+                        </Col>
+                      </Row>
+                    </div>
+                  ))}
               </div>
             </div>
           </Col>

@@ -1,8 +1,8 @@
 import { LoadingOutlined, RobotOutlined, UserOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { Avatar, Button, Col, Form, Input, Radio, Row, theme, Select } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
 import { useIntl } from '@umijs/max';
+import { Avatar, Button, Col, Form, Input, Radio, Row, Select, theme } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 
 // const { Title } = Typography;
 
@@ -16,7 +16,7 @@ const MarketingText: React.FC = () => {
   const [message, setMessage] = useState('');
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(false);
-  const [model_id, setModel_id] = useState('bedrock_claude3');
+  const [model_id, setModel_id] = useState('chatglm3');
   //  const [messageApi, contextHolder] = ant_message.useMessage();
 
   type FieldType = {
@@ -46,14 +46,15 @@ const MarketingText: React.FC = () => {
     ws.current.onopen = () => console.log('ws opened');
     ws.current.onclose = () => console.log('ws closed');
 
-    let curA = "", curQ = "";
+    let curA = '',
+      curQ = '';
 
     ws.current.onmessage = (e) => {
       const revStr = e.data;
       let jObject;
       try {
         jObject = JSON.parse(revStr);
-      } catch (e) { }
+      } catch (e) {}
       // console.log("rev: ", jObject)
       if (jObject && jObject.status === 'done') {
         history.push([curQ, curA]);
@@ -62,7 +63,7 @@ const MarketingText: React.FC = () => {
           setMessage('');
         }
         setQuestion('');
-        curA = "", curQ = "";
+        (curA = ''), (curQ = '');
         setLoading(false);
       } else if (jObject && jObject.status === 'begin') {
         curQ = jObject.question;
@@ -107,72 +108,86 @@ const MarketingText: React.FC = () => {
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.redbook',
-      }), value: 'redbook'
+      }),
+      value: 'redbook',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.zhihu',
-      }), value: 'zhihu'
+      }),
+      value: 'zhihu',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.weibo',
-      }), value: 'weibo'
+      }),
+      value: 'weibo',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.gongzhonghao',
-      }), value: 'gongzhonghao'
+      }),
+      value: 'gongzhonghao',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.dianping',
-      }), value: 'dianping'
+      }),
+      value: 'dianping',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.toutiao',
-      }), value: 'toutiao'
+      }),
+      value: 'toutiao',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.zhidemai',
-      }), value: 'zhidemai'
+      }),
+      value: 'zhidemai',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.douyin',
-      }), value: 'douyin'
+      }),
+      value: 'douyin',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.kuaishou',
-      }), value: 'kuaishou'
+      }),
+      value: 'kuaishou',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.twitter',
-      }), value: "twitter"
+      }),
+      value: 'twitter',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.instagram',
-      }), value: "instagram"
+      }),
+      value: 'instagram',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.tiktok',
-      }), value: "tiktok"
+      }),
+      value: 'tiktok',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.youtube',
-      }), value: "youtube"
+      }),
+      value: 'youtube',
     },
     {
       label: intl.formatMessage({
         id: 'pages.marketingText.patterns.medium',
-      }), value: "medium"
+      }),
+      value: 'medium',
     },
     { label: 'Freestyle', value: 'freestyle' },
   ];
@@ -192,7 +207,7 @@ const MarketingText: React.FC = () => {
       id: 'pages.marketingText.prompt.defaultValue',
     }),
     pattern: 'redbook',
-    model_id: 'bedrock_claude3',
+    model_id: 'chatglm3',
   };
 
   return (
@@ -223,14 +238,8 @@ const MarketingText: React.FC = () => {
                 name="model_id"
               >
                 <Select onChange={handleModelChange}>
-                  <Select.Option value="bedrock_claude3">
-                    {intl.formatMessage({ id: 'pages.marketingText.model.bedrockClaude3' })}
-                  </Select.Option>
                   <Select.Option value="chatglm3">
                     {intl.formatMessage({ id: 'pages.marketingText.model.chatglm3' })}
-                  </Select.Option>
-                  <Select.Option value="bedrock_claude2">
-                    {intl.formatMessage({ id: 'pages.marketingText.model.bedrockClaude2' })}
                   </Select.Option>
                   <Select.Option value="chatglm2">
                     {intl.formatMessage({ id: 'pages.marketingText.model.chatglm2' })}
@@ -242,11 +251,14 @@ const MarketingText: React.FC = () => {
                   id: 'pages.marketingText.prompt.title',
                 })}
                 name="prompt"
-                rules={[{
-                  required: true, message: intl.formatMessage({
-                    id: 'pages.marketingText.prompt.required',
-                  })
-                }]}
+                rules={[
+                  {
+                    required: true,
+                    message: intl.formatMessage({
+                      id: 'pages.marketingText.prompt.required',
+                    }),
+                  },
+                ]}
               >
                 <Input.TextArea
                   showCount
@@ -262,7 +274,9 @@ const MarketingText: React.FC = () => {
               <Form.Item<FieldType>
                 label={intl.formatMessage({
                   id: 'pages.marketingText.style.title',
-                })} name="pattern">
+                })}
+                name="pattern"
+              >
                 <Radio.Group
                   options={patterns}
                   onChange={onPatternChange}
@@ -295,51 +309,61 @@ const MarketingText: React.FC = () => {
                 {history.length === 0 && !question && (
                   <div>{intl.formatMessage({ id: 'pages.marketingText.result.help' })} </div>
                 )}
-                {history.length > 0 && history.map((item) => (
-                  <div
-                    style={{
-                      marginBottom: 10,
-                    }}
-                    key={item}
-                  >
-                    <Row justify="end">
-                      <Col
-                        flex="1"
-                        style={{
-                          textAlign: 'left',
-                          paddingLeft: 100,
-                          margin: '8px 4px',
-                          fontSize: '16pt',
-
-                        }}
-                      >
-                        <div style={{ backgroundColor: '#666', width: 'auto', padding: '5px', borderRadius: '4px', marginBottom: "25px" }}>{item[0]}</div>
-                      </Col>
-                      <Col flex="40px" style={{ textAlign: 'center', marginTop: "8px" }}>
-                        <Avatar size={32} icon={<UserOutlined />} />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col flex="40px" style={{ textAlign: 'center', marginTop: "4px" }}>
-                        <Avatar size={32} icon={<RobotOutlined />} />
-                      </Col>
-                      <Col
-                        flex="auto"
-                        style={{
-                          paddingRight: 100,
-                          maxWidth: '90%',
-                          fontSize: '16pt',
-                          lineHeight: '1.5',
-                          marginBottom: "30px"
-                        }}
-                      >
-                        <pre style={{ wordWrap: "break-word", whiteSpace: "pre-wrap" }}>
-                          {item[1]}
-                        </pre>
-                      </Col>
-                    </Row>
-                  </div>
-                ))}
+                {history.length > 0 &&
+                  history.map((item) => (
+                    <div
+                      style={{
+                        marginBottom: 10,
+                      }}
+                      key={item}
+                    >
+                      <Row justify="end">
+                        <Col
+                          flex="1"
+                          style={{
+                            textAlign: 'left',
+                            paddingLeft: 100,
+                            margin: '8px 4px',
+                            fontSize: '16pt',
+                          }}
+                        >
+                          <div
+                            style={{
+                              backgroundColor: '#666',
+                              width: 'auto',
+                              padding: '5px',
+                              borderRadius: '4px',
+                              marginBottom: '25px',
+                            }}
+                          >
+                            {item[0]}
+                          </div>
+                        </Col>
+                        <Col flex="40px" style={{ textAlign: 'center', marginTop: '8px' }}>
+                          <Avatar size={32} icon={<UserOutlined />} />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col flex="40px" style={{ textAlign: 'center', marginTop: '4px' }}>
+                          <Avatar size={32} icon={<RobotOutlined />} />
+                        </Col>
+                        <Col
+                          flex="auto"
+                          style={{
+                            paddingRight: 100,
+                            maxWidth: '90%',
+                            fontSize: '16pt',
+                            lineHeight: '1.5',
+                            marginBottom: '30px',
+                          }}
+                        >
+                          <pre style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>
+                            {item[1]}
+                          </pre>
+                        </Col>
+                      </Row>
+                    </div>
+                  ))}
                 {question && (
                   <Row>
                     <Col
@@ -351,9 +375,19 @@ const MarketingText: React.FC = () => {
                         fontSize: '16pt',
                       }}
                     >
-                      <div style={{ backgroundColor: '#666', width: 'auto', padding: '5px', borderRadius: '4px', marginBottom: "25px" }}>{question}</div>
+                      <div
+                        style={{
+                          backgroundColor: '#666',
+                          width: 'auto',
+                          padding: '5px',
+                          borderRadius: '4px',
+                          marginBottom: '25px',
+                        }}
+                      >
+                        {question}
+                      </div>
                     </Col>
-                    <Col flex="40px" style={{ textAlign: 'center', marginTop: "8px" }}>
+                    <Col flex="40px" style={{ textAlign: 'center', marginTop: '8px' }}>
                       <Avatar size={32} icon={<UserOutlined />} />
                     </Col>
                   </Row>
@@ -365,7 +399,7 @@ const MarketingText: React.FC = () => {
                 ) : null}
                 {message && (
                   <Row>
-                    <Col flex="40px" style={{ textAlign: 'center', marginTop: "4px" }}>
+                    <Col flex="40px" style={{ textAlign: 'center', marginTop: '4px' }}>
                       <Avatar size={32} icon={<RobotOutlined />} />
                     </Col>
                     <Col
@@ -375,10 +409,10 @@ const MarketingText: React.FC = () => {
                         maxWidth: '90%',
                         fontSize: '16pt',
                         lineHeight: '1.5',
-                        marginBottom: "30px"
+                        marginBottom: '30px',
                       }}
                     >
-                      <pre style={{ wordWrap: "break-word", whiteSpace: "pre-wrap" }}>
+                      <pre style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>
                         {message}
                       </pre>
                     </Col>

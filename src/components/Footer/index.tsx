@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   const intl = useIntl();
   const defaultMessage = intl.formatMessage({
     id: 'app.copyright.produced',
-    defaultMessage: '亚马逊云科技',
+    defaultMessage: '生成式AI',
   });
 
   const currentYear = new Date().getFullYear();
@@ -17,17 +17,17 @@ const Footer: React.FC = () => {
         background: 'none',
       }}
       copyright={`${currentYear} ${defaultMessage}`}
-    // links={[
-    //   {
-    //     key: 'Amazon-AWS-CN',
-    //     title: intl.formatMessage({
-    //       id: 'app.copyright.corp',
-    //       defaultMessage: 'AWS',
-    //     }),
-    //     href: 'https://www.amazonaws.cn/',
-    //     blankTarget: true,
-    //   },
-    // ]}
+      // links={[
+      //   {
+      //     key: 'Amazon-AWS-CN',
+      //     title: intl.formatMessage({
+      //       id: 'app.copyright.corp',
+      //       defaultMessage: 'AWS',
+      //     }),
+      //     href: 'https://www.amazonaws.cn/',
+      //     blankTarget: true,
+      //   },
+      // ]}
     />
   );
 };

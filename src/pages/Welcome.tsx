@@ -119,7 +119,7 @@ const Welcome: React.FC = () => {
           >
             {intl.formatMessage({
               id: 'pages.welcome.title',
-              defaultMessage: 'AWS Workshop - GenAI for Marketing Scenario',
+              defaultMessage: 'Workshop - GenAI for Marketing Scenario',
             })}
           </div>
           <p
@@ -133,7 +133,7 @@ const Welcome: React.FC = () => {
             }}
           >
             <ul
-              className='welcome-brief'
+              className="welcome-brief"
               style={{ paddingLeft: 10 }}
               dangerouslySetInnerHTML={{
                 __html: intl.formatMessage({
